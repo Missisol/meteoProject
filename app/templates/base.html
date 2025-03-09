@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% if title %}
+    <title>{{ title }} - Meteo</title>
+    {% else %}
+    <title>Welcome to Meteo</title>
+    {% endif %}
+  </head>
+  <body>
+      <div>Meteo: 
+        <a href="{{ url_for('main.index') }}">Home</a>
+        <a href="{{ url_for('sensor.sensor') }}">Sensor PRI</a>
+      </div>
+      <hr>
+      {% block content %}{% endblock %}
+      {{ moment.include_moment() }}
+  </body>
+</html>

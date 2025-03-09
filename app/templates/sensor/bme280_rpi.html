@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Sensors{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% if data %}
+    {% for d in data %}
+      <ul>
+        <li>temperature: {{ d['temperature']}}</li>
+        <li>humidity: {{ d['humidity']}}</li>
+        <li>pressure: {{ d['pressure']}}</li>
+        <li>date: {{ moment(d['created_at']).format('LLL')}}</li>
+      </ul>
+      {% if not loop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Next</a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}">Pev</a>
+    {% endif %}
+  {% else %}
+      <p>No data</p>
+  {% endif %}
+{% endblock %}
