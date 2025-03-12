@@ -5,4 +5,6 @@
 5. Запуск redis-server ```sudo service redis-server start```
 6. Проверка статуса redis-server ```sudo service redis-server status```
 7. Запуск воркера ```rq worker <task-name>```
+8. ```crontab -e```
+```* * * * * cd /home/marina/Projects/meteoProject && .venv/bin/flask scheduled```
 
