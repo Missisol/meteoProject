@@ -1,10 +1,9 @@
-1. Установка mosquitto broker
-2. Установка redis
-3. Запуск ```flask run --host=0.0.0.0```
-4. ```flask shell```
-5. Запуск redis-server ```sudo service redis-server start```
-6. Проверка статуса redis-server ```sudo service redis-server status```
-7. Запуск воркера ```rq worker <task-name>```
-8. ```crontab -e```
+- Установка mosquitto broker
+- Запуск ```flask run --host=0.0.0.0```
+- ```flask shell```
+- Запуск redis-server ```sudo service redis-server start```
+- Проверка статуса redis-server ```sudo service redis-server status```
+- Запуск воркера ```rq worker <task-name>```
+- ```crontab -e```
 ```* * * * * cd /home/marina/Projects/meteoProject && .venv/bin/flask scheduled```
 
