@@ -1,8 +1,5 @@
-- Запуск ```flask run --host=0.0.0.0```
-- ```flask shell```
-- Запуск redis-server ```sudo service redis-server start```
-- Проверка статуса redis-server ```sudo service redis-server status```
-- Запуск воркера ```rq worker <task-name>```
-- ```crontab -e```
+- Run app```flask run --host=0.0.0.0```
+- Command for working with the database entities without having to import them ```flask shell```
+- Setting up a scheduled job with cron```crontab -e```
 ```* * * * * cd /home/marina/Projects/meteoProject && .venv/bin/flask scheduled```
 
