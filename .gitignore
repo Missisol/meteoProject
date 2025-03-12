@@ -39,3 +39,5 @@ venv
 .venv
 app.db
 meteo.log*
+
+.vscode

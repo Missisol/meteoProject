@@ -6,17 +6,29 @@
 
 {% block content %}
   {% if data %}
-    {% for d in data %}
-      <ul>
-        <li>temperature: {{ d['temperature']}}</li>
-        <li>humidity: {{ d['humidity']}}</li>
-        <li>pressure: {{ d['pressure']}}</li>
-        <li>date: {{ moment(d['created_at']).format('LLL')}}</li>
-      </ul>
-      {% if not loop.last %}
-        <hr>
-      {% endif %}
-    {% endfor %}
+    <table class="table">
+      <caption>BME280 on RPI</caption>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>temperature</th>
+          <th>humidity</th>
+          <th>pressure</th>
+          <th>date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in data %}
+        <tr>
+          <td>{{ d['id'] }}</td>
+          <td>{{ d['temperature'] }}</td>
+          <td>{{ d['humidity'] }}</td>
+          <td>{{ d['pressure'] }}</td>
+          <td>{{ moment(d['created_at']).format('LLL') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
     {% if prev_url %}
     <a href="{{ prev_url }}">Next</a>
     {% endif %}

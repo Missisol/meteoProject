@@ -12,7 +12,7 @@ bme = BME280Module()
 @bp.route('/sensor')
 def sensor():
     page = request.args.get('page', 1, type=int)
-    query = sa.select(Bme280).order_by(Bme280.created_at)
+    query = sa.select(Bme280).order_by(Bme280.created_at.desc())
     data = db.paginate(query, page=page, per_page=current_app.config['ITEMS_PER_PAGE'], error_out=False)
     next_url = url_for('sensor.sensor', page=data.next_num) \
         if data.has_next else None
