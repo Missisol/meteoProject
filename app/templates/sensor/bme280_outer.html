@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Sensors{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% if data %}
+    <table class="table">
+      <caption>BME280 on RPI</caption>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>temperature</th>
+          <th>humidity</th>
+          <th>pressure</th>
+          <th>date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in data %}
+        <tr>
+          <td>{{ d['id'] }}</td>
+          <td>{{ d['temperature'] }}</td>
+          <td>{{ d['humidity'] }}</td>
+          <td>{{ d['pressure'] }}</td>
+          <td>{{ moment(d['created_at']).format('LLL') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Next</a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}">Pev</a>
+    {% endif %}
+  {% else %}
+      <p>No data</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+body {
+    background: #cecece;
+}
+
+.table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+}
+
+th, td {
+    padding-inline: 12px;
+}
