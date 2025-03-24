@@ -49,19 +49,6 @@ def create_app(config_class=Config):
         app.logger.info('Meteo startup')
 
 
-    # broker_url = 'localhost'
-    # broker_port = 1883
-
-    # def on_connect(client, userdata, flags, rc):
-    #     if rc == 0:
-    #         print("Connected success")
-    #     else:
-    #         print(f"Connected fail with code {rc}")
-    #     # Subscribing in on_connect() means that if we lose the connection and
-    #     # reconnect then subscriptions will be renewed.
-
-
-    # def on_message(client, userdata, message):
     def on_message_from_bme280(client, userdata, message):
         print(f"{message.topic} {message.payload}")
         if message.topic == "/bme280/bmereadings":
@@ -77,17 +64,6 @@ def create_app(config_class=Config):
                 db.session.add(data)
                 db.session.commit()
 
-
-    # mqttc=mqtt.Client()
-    # mqttc.on_connect = on_connect
-    # mqttc.on_message = on_message
-    # # mqttc.on_subscribe = on_subscribe
-    # mqttc.connect(broker_url, broker_port, 60)
-    # # mqttc.connect("localhost", 1883, 60)
-    # mqttc.subscribe("/bme280/bmereadings", qos=1)
-    # mqttc.subscribe("/dht22/dhtreadings", qos=1)
-
-    # mqttc.loop_start()
 
     mqttc = run()
     mqttc.message_callback_add("/bme280/bmereadings", on_message_from_bme280)
