@@ -1,0 +1,19 @@
+<header class="header">
+    <a href="{{ url_for('main.index') }}" class="header__logo">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo">
+    </a>
+    <nav>
+        <ul>
+            <li>
+                <a href="{{ url_for('sensor.sensor_rpi') }}">Sensor BME280 RPI</a>
+            </li>
+            <li>
+                <a href="{{ url_for('sensor.bme280_outer') }}">Sensor BME280 Outer</a>
+            </li>
+            <li>
+                <a href="{{ url_for('sensor.dht22_outer') }}">Sensor DHT22 Outer</a>
+            </li>
+        </ul>
+    </nav>
+
+</header>

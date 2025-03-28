@@ -7,12 +7,13 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_moment import Moment
-import paho.mqtt.client as mqtt
+from flask_socketio import SocketIO
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 moment = Moment()
+socketio = SocketIO()
 
 
 def create_app(config_class=Config):
@@ -22,6 +23,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     migrate.init_app(app, db)
     moment.init_app(app)
+    socketio.init_app(app)
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
@@ -49,19 +51,6 @@ def create_app(config_class=Config):
         app.logger.info('Meteo startup')
 
 
-    # broker_url = 'localhost'
-    # broker_port = 1883
-
-    # def on_connect(client, userdata, flags, rc):
-    #     if rc == 0:
-    #         print("Connected success")
-    #     else:
-    #         print(f"Connected fail with code {rc}")
-    #     # Subscribing in on_connect() means that if we lose the connection and
-    #     # reconnect then subscriptions will be renewed.
-
-
-    # def on_message(client, userdata, message):
     def on_message_from_bme280(client, userdata, message):
         print(f"{message.topic} {message.payload}")
         if message.topic == "/bme280/bmereadings":
@@ -71,28 +60,37 @@ def create_app(config_class=Config):
             humidity_val = float(data['humidity'])
             pressure_val = round(int(data['pressure']))
 
-            data = models.Bme280Outer(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val)
+            mod = models.Bme280Outer(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val)
+            socketio.emit('bme_message', message.payload.decode())
 
             with app.app_context():
-                db.session.add(data)
+                db.session.add(mod)
                 db.session.commit()
 
 
-    # mqttc=mqtt.Client()
-    # mqttc.on_connect = on_connect
-    # mqttc.on_message = on_message
-    # # mqttc.on_subscribe = on_subscribe
-    # mqttc.connect(broker_url, broker_port, 60)
-    # # mqttc.connect("localhost", 1883, 60)
-    # mqttc.subscribe("/bme280/bmereadings", qos=1)
-    # mqttc.subscribe("/dht22/dhtreadings", qos=1)
+    def on_message_from_dht22(client, userdata, message):
+        print(f"{message.topic} {message.payload}")
+        if message.topic == "/dht22/dhtreadings":
+            print("DHT readings update")
+            data = ast.literal_eval(message.payload.decode())
+            temperature_1 = float(data['temperature-1'])
+            humidity_1 = float(data['humidity-1'])
+            temperature_2 = float(data['temperature-2'])
+            humidity_2 = float(data['humidity-2'])
 
-    # mqttc.loop_start()
+            mod = models.Dht22(temperature1=temperature_1, humidity1=humidity_1, temperature2=temperature_2, humidity2=humidity_2,)
+            socketio.emit('dht_message', message.payload.decode())
+
+            with app.app_context():
+                db.session.add(mod)
+                db.session.commit()
+
 
     mqttc = run()
     mqttc.message_callback_add("/bme280/bmereadings", on_message_from_bme280)
+    mqttc.message_callback_add("/dht22/dhtreadings", on_message_from_dht22)
 
     return app
 
 from app import models
-from app.sensor.bme280outer import run
+from app.sensor.sensor_mqtt import run

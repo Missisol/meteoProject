@@ -6,7 +6,7 @@ bp = Blueprint('cli', __name__, cli_group=None)
 
 
 
-from app.sensor.bme280 import BME280Module
+from app.sensor.sensor_rpi import BME280Module
 bme = BME280Module()
 
 

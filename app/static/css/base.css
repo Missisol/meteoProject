@@ -1,0 +1,169 @@
+*, 
+*::before, 
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body, h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  font-family: 'Roboto', sans-serif;
+  background: var(--base-color);
+  color: var(--base-grey-color);
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+  font-family: 'Rubik', sans-serif;
+}
+
+img, picture, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4 {
+  overflow-wrap: break-word;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+:root,
+:root[data-force-color-mode='light'] {
+  /* Для сответствия цвета контролов цветовой схеме браузера или системы*/
+  color-scheme: light dark; 
+
+  --base-color: #fff;
+  --accent-color: #ececec;
+  --base-grey-color: #595959;
+  --medium-grey-color: #808080;
+  --light-grey-color: #cecece;
+  --base-blue-color: #047df3;
+  --medium-blue-color: #70b0ef;
+  --light-blue-color: #a6cdf3;
+  --base-green-color: #3ba639;
+  --light-green-color: #aaffa9;
+  --base-red-color: #ff0000;
+  --light-red-color: #ef7985;
+  --base-magenta-color: #cc66ff;
+
+  --gap: 1rem;
+
+  --gap-4: calc(var(--gap) / 4);
+  --gap-2: calc(var(--gap) / 2);
+
+  --gap2: calc(var(--gap) * 2);
+  --gap4: calc(var(--gap) * 4);
+
+  --helper-font-size: 14px;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --base-color: #191919;
+    --accent-color: #212020;
+    --base-grey-color: #b2b0b0;
+    --medium-grey-color: #808080;
+    --light-grey-color: #cecece;
+    --base-blue-color: #3392f1;
+    --medium-blue-color: #70b0ef;
+    --light-blue-color: #a6cdf3;
+    --base-green-color: #3ba639;
+    --light-green-color: #aaffa9;
+    --base-red-color: #ff0000;
+    --light-red-color: #ef7985;
+    --base-magenta-color: #cc66ff;
+  }
+}
+
+:root[data-force-color-mode='dark'] {
+  --accent-color: #212020;
+  --base-color: #191919;
+  --base-grey-color: #b2b0b0;
+  --medium-grey-color: #808080;
+  --light-grey-color: #cecece;
+  --base-blue-color: #3392f1;
+  --medium-blue-color: #70b0ef;
+  --light-blue-color: #a6cdf3;
+  --base-green-color: #3ba639;
+  --light-green-color: #aaffa9;
+  --base-red-color: #ff0000;
+  --light-red-color: #ef7985;
+  --base-magenta-color: #cc66ff;
+}
+
+.container {
+  min-height: 100%;
+  display: grid;
+  grid-template-columns:
+    [full-start] 1fr [container-start] minmax(0, 1100px) [container-end] 1fr [full-end];
+  grid-template-rows: auto 1fr auto;
+  gap: var(--gap);
+}
+
+.container > * {
+  grid-column: container;
+}
+
+.container > .full-width {
+  grid-column: full;
+}
+
+.full-width {
+  background: var(--accent-color);
+}
+
+.wrapper-inner {
+  display: grid;
+  grid-template-columns:
+    1fr [container-start] minmax(0, 1100px) [container-end] 1fr;
+  column-gap: var(--gap);
+}
+
+.wrapper-inner > * {
+  grid-column: container;
+}
+
+/* title */
+.page-title {
+  color: var(--base-blue-color);
+  font-size: 1.5rem;
+  margin-bottom: var(--gap);
+}
+
+.title {
+  font-weight: 400;
+}
+
+.delimiter {
+  height: 1px;
+  background: var(--light-grey-color);
+}

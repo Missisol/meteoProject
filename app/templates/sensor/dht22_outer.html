@@ -7,13 +7,14 @@
 {% block content %}
   {% if data %}
     <table class="table">
-      <caption>BME280 Outer</caption>
+      <caption>DHT22 Outer</caption>
       <thead>
         <tr>
           <th>id</th>
-          <th>temperature</th>
-          <th>humidity</th>
-          <th>pressure</th>
+          <th>temperature-1</th>
+          <th>humidity-1</th>
+          <th>temperature-2</th>
+          <th>humidity-2</th>
           <th>date</th>
         </tr>
       </thead>
@@ -21,9 +22,10 @@
         {% for d in data %}
         <tr>
           <td>{{ d['id'] }}</td>
-          <td>{{ d['temperature'] }}</td>
-          <td>{{ d['humidity'] }}</td>
-          <td>{{ d['pressure'] }}</td>
+          <td>{{ d['temperature1'] }}</td>
+          <td>{{ d['humidity1'] }}</td>
+          <td>{{ d['temperature2'] }}</td>
+          <td>{{ d['humidity2'] }}</td>
           <td>{{ moment(d['created_at']).format('LLL') }}</td>
         </tr>
         {% endfor %}

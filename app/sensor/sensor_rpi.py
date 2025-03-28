@@ -1,7 +1,7 @@
 import smbus2
 import bme280
 from app import db
-from app.models import Bme280
+from app.models import Bme280Rpi
 
 
 class BME280Module:
@@ -22,10 +22,10 @@ class BME280Module:
       # Pressure convertion to mmHg
       pressure_val = round(pressure_raw_val * 0.75)
 
-      data = Bme280(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val, created_at=timestamp_raw_val)
+      data = Bme280Rpi(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val, created_at=timestamp_raw_val)
 
       db.session.add(data)
       db.session.commit()
 
-      print(f"temperature: {temperature_val}")
+      print(f"temperature RPI: {temperature_val}")
       return (temperature_val, pressure_val, humidity_val, timestamp_raw_val)

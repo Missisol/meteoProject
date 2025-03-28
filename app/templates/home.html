@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+{% endblock %}
+
+
+{% block content %}
+    <h1>Home page</h1>
+
+    <h3>BME RPI</h3>
+    <p id="rpi-t"></p>
+    <p id="rpi-p"></p>
+    <p id="rpi-h"></p>
+    <p id="rpi-time"></p>
+
+    <h3>DHT22</h3>
+    <p id="dht1-t"></p>
+    <p id="dht1-h"></p>
+    <p id="dht2-t"></p>
+    <p id="dht2-h"></p>
+    <p id="dht-time"></p>
+
+    <h3>BME280</h3>
+    <p id="bme-t"></p>
+    <p id="bme-p"></p>
+    <p id="bme-h"></p>
+    <p id="bme-time"></p>
+
+    <div id="chart"></div>
+
+    <script src="../static/vendor/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+<script src="../static/js/sensor.js"></script>
+{% endblock %}

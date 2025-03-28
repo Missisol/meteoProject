@@ -5,4 +5,6 @@
     - ``crontab -e``
     - ``* * * * * cd <path_to_project_directory> && .venv/bin/flask <command_name>``
 - Create requirements file``pip freeze > requirements.txt``
+- ``pip install -r requirements.txt``
+- ``flask db downgrade base`` - when the downgrade command is not given a target, it downgrades one revision. The base target causes all migrations to be downgraded, until the database is left at its initial state, with no tables.
 
