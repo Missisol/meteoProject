@@ -16,21 +16,21 @@ def index():
 
 @bp.route('/sensorReadings')
 def get_sensor_readings():
-    temperature, pressure, humidity, time = bme.get_sensor_readings()
+    temperature, pressure, humidity, created_at = bme.get_sensor_readings()
     return jsonify(
         {
             "status": "OK",
             "temperature": temperature,
             "pressure": pressure,
             "humidity": humidity,
-            "time": time,
+            "created_at": created_at,
         }
     )
 
 
 @bp.route('/bme280Outer')
 def get_bme_mqtt_data():
-    data = Bme280Outer.query.first()
+    data = Bme280Outer.query.order_by(Bme280Outer.created_at.desc()).first()
     # query = sa.select(Bme280Outer).order_by(Bme280Outer.created_at.desc()).limit(1)
     # data = db.session.scalars(query)
     return jsonify(
@@ -45,7 +45,7 @@ def get_bme_mqtt_data():
 
 @bp.route('/dht22Outer')
 def get_dht_mqtt_data():
-    data = Dht22.query.first()
+    data = Dht22.query.order_by(Dht22.created_at.desc()).first()
     return jsonify(
         {
             'temperature1': data.temperature1,
