@@ -4,7 +4,8 @@ import sqlalchemy as sa
 from app.main import bp
 from app.sensor.sensor_rpi import BME280Module
 from app.models import Bme280Outer, Dht22
-from app.utils.sensor_data import box4, box5
+from app.utils.sensor_data import list_bme, list_dht, prefix_list
+
 bme = BME280Module()
 
 
@@ -61,7 +62,8 @@ def get_dht_mqtt_data():
 def inject_boxes():
     return dict(
         {
-            'bme_list': box5,
-            'dht_list': box4
+            'bme_list': list_bme,
+            'dht_list': list_dht,
+            'prefix_list': prefix_list,
         }
     )

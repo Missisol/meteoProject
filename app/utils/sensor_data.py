@@ -1,58 +1,32 @@
-box0 = [
+list_date = [
      {
         'dataName': "Даные на", 
-        'id': 'date',
+        'data': 'date',
     },
 ]
 
-box1 = [
+list1 = [
     {
         'dataName': "Температура, &deg;C",
-        'id': 'temperature',
+        'data': 'temperature',
     }, 
     {
         'dataName': "Влажность, %", 
-        'id': 'humidity',
+        'data': 'humidity',
     }, 
 ]
 
-box2 = [
+list2 = [
      {
         'dataName': "Давление, мм.рт.ст.", 
-        'id': 'pressure',
+        'data': 'pressure',
     },
 ]
 
-box3 = [*box1, *box2]
+list3 = [*list1, *list2]
 
-box4 = [*box0, *box1]
+list_dht = [*list_date, *list1]
 
-box5 = [*box0, *box3]
+list_bme = [*list_date, *list3]
 
-gauge1 = [
-    'temperature',
-    'humidity',
-]
-
-gauge2 = ['pressure']
-
-gauge3 = [*gauge1, *gauge2]
-
-data_list =  [
-    { 
-        'box': box1,
-    },
-    {
-        'gauge': gauge1,
-    },
-]
-
-
-bme_data_list =  [
-    { 
-        'box': box3,
-    },
-    {
-        'gauge': gauge3,
-    },
-]
+prefix_list = ['rpi', 'bme', 'dht1', 'dht2']

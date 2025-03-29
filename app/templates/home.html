@@ -6,26 +6,21 @@
 
 
 {% block content %}
-    <h1>Home page</h1>
+    <h1>Текущие данные датчиков</h1>
+    {% include 'includes/icons_sensor.html' %}
+    {% import 'includes/sensor_home.html' as sensor %}
 
-    <h3>BME RPI</h3>
-    <p id="rpi-t"></p>
-    <p id="rpi-p"></p>
-    <p id="rpi-h"></p>
-    <p id="rpi-time"></p>
-
-    <h3>DHT22</h3>
-    <p id="dht1-t"></p>
-    <p id="dht1-h"></p>
-    <p id="dht2-t"></p>
-    <p id="dht2-h"></p>
-    <p id="dht-time"></p>
-
-    <h3>BME280</h3>
-    <p id="bme-t"></p>
-    <p id="bme-p"></p>
-    <p id="bme-h"></p>
-    <p id="bme-time"></p>
+    {% for prefix in prefix_list %}
+      {% if prefix=='rpi' %}
+      {{ sensor.get_item('BME280 RPI', 'sensor.sensor_rpi',  'rpi', bme_list) }}
+      {% elif prefix=='bme' %}
+      {{ sensor.get_item('BME280 ESP8266', 'sensor.bme280_outer', 'bme', bme_list) }}
+      {% elif prefix=='dht1' %}
+      {{ sensor.get_item('DHT22 1 ESP8266', 'sensor.dht22_outer', 'dht1', dht_list) }}
+      {% elif prefix=='dht2'  %}
+      {{ sensor.get_item('DHT22 2 ESP8266', 'sensor.dht22_outer', 'dht2', dht_list) }}
+      {% endif %}
+    {% endfor %}
 
     <div id="chart"></div>
 

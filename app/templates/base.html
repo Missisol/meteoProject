@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% if title %}
-    <title>{{ title }}</title>
-    {% else %}
-    <title>Welcome to Meteo</title>
-    {% endif %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}" />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-dev.ico') }}">
+    {% block head %}
+      {% if title %}
+      <title>{{ title }}</title>
+      {% else %}
+      <title>Meteo</title>
+      {% endif %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}" />
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-dev.ico') }}">
+    {% endblock %}
   </head>
   <body>
     <div class="container">
