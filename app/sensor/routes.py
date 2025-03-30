@@ -3,9 +3,15 @@ from app import db
 import sqlalchemy as sa
 from app.sensor import bp
 from app.models import Bme280Rpi, Bme280Outer, Dht22
+from flask_babel import format_datetime
 
 # from app.sensor.sensor_rpi import BME280Module
 # bme = BME280Module()
+
+
+@bp.app_template_filter('datetimeformat')
+def datetimeformat(value):
+    return format_datetime(value, 'd.MM.yyyy, HH:mm:ss')
 
 
 @bp.route('/bme280-rpi')

@@ -3,22 +3,21 @@ const rpiP = document.querySelector('#rpi-pressure')
 const rpiH = document.querySelector('#rpi-humidity')
 const rpiDate = document.querySelector('#rpi-date')
 
-const dhtT1 = document.querySelector('#dht1-temperature')
-const dhtH1 = document.querySelector('#dht1-humidity')
-const dhtT2 = document.querySelector('#dht2-temperature')
-const dhtH2 = document.querySelector('#dht2-humidity')
-const dht1Date = document.querySelector('#dht1-date')
-const dht2Date = document.querySelector('#dht2-date')
-
 const bmeT = document.querySelector('#bme-temperature')
 const bmeP = document.querySelector('#bme-pressure')
 const bmeH = document.querySelector('#bme-humidity')
 const bmeDate = document.querySelector('#bme-date')
 
+const dht1T = document.querySelector('#dht1-temperature')
+const dht1H = document.querySelector('#dht1-humidity')
+const dht1Date = document.querySelector('#dht1-date')
+
+const dht2T = document.querySelector('#dht2-temperature')
+const dht2H = document.querySelector('#dht2-humidity')
+const dht2Date = document.querySelector('#dht2-date')
 
 const timer = 1000 * 60
 // const timer = 1000 * 60 * 5
-
 
 var socket = io();
 socket.on('connect', () => {
@@ -26,10 +25,10 @@ socket.on('connect', () => {
 });
 socket.on('dht_message', (data) => {
     const dht = JSON.parse(data)
-    dhtT1.textContent = dht['temperature-1']
-    dhtT2.textContent = dht['temperature-2']
-    dhtH1.textContent = dht['humidity-1']
-    dhtH2.textContent = dht['humidity-2']
+    dht1T.textContent = dht['temperature-1']
+    dht2T.textContent = dht['temperature-2']
+    dht1H.textContent = dht['humidity-1']
+    dht2H.textContent = dht['humidity-2']
     dht1Date.textContent = dht2Date.textContent = new Date().toLocaleString('ru')
 });
 socket.on('bme_message', (data) => {
@@ -41,7 +40,7 @@ socket.on('bme_message', (data) => {
 });
 
 
-function updateSensorReadings() {
+function getBme280RpiData() {
     fetch('/sensorReadings')
         .then((response) => response.json())
         .then((jsonR) => {
@@ -67,16 +66,16 @@ function getDht22OuterData() {
     fetch('/dht22Outer')
         .then((response) => response.json())
         .then((jsonR) => {
-            dhtT1.textContent = jsonR.temperature1
-            dhtT2.textContent = jsonR.temperature2
-            dhtH1.textContent = jsonR.humidity1
-            dhtH2.textContent = jsonR.humidity2
+            dht1T.textContent = jsonR.temperature1
+            dht2T.textContent = jsonR.temperature2
+            dht1H.textContent = jsonR.humidity1
+            dht2H.textContent = jsonR.humidity2
             dht1Date.textContent = dht2Date.textContent = new Date(jsonR.created_at).toLocaleString('ru')
         })
 }
 
 function checkContent() {
-    if (!dhtT1.innerText) {
+    if (!dht1T.innerText) {
         getDht22OuterData()
     }
     if (!bmeT.innerText) {
@@ -84,18 +83,22 @@ function checkContent() {
     } 
 }
 
-
 function loop() {
     setTimeout(() => {
-      updateSensorReadings()
+      getBme280RpiData()
       loop()
     }, timer)
   }
   
+function init() {
+    checkContent()
+    getBme280RpiData()
+    loop()
+}
 
-  checkContent()
-  updateSensorReadings()
-  loop()
+init()
+
+
 
 
 // apexcharts https://apexcharts.com/docs/creating-first-javascript-chart/
