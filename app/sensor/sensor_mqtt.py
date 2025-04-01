@@ -9,8 +9,8 @@ def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
             print("Connected success")
-            client.subscribe("/bme280/bmereadings", qos=1)
-            client.subscribe("/dht22/dhtreadings", qos=1)
+            client.subscribe('/esp8266/bme280', qos=1)
+            client.subscribe('/esp8266/dht22', qos=1)
         else:
             print(f"Connected fail with code {rc}")
 
@@ -21,7 +21,7 @@ def connect_mqtt():
 
 
 def on_message(client, userdata, message):
-    print("Message Recieved from other: "+message.payload)
+    print(f"{message.topic} {message.payload}")
     socketio.emit('other_message', message.payload)
 
 

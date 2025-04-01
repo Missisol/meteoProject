@@ -59,7 +59,7 @@ def create_app(config_class=Config):
 
     def on_message_from_bme280(client, userdata, message):
         print(f"{message.topic} {message.payload}")
-        if message.topic == "/bme280/bmereadings":
+        if message.topic == app.config['MQTT_TOPIC_BME280']:
             print("BME readings update")
             data = ast.literal_eval(message.payload.decode())
             temperature_val = float(data['temperature'])
@@ -76,7 +76,7 @@ def create_app(config_class=Config):
 
     def on_message_from_dht22(client, userdata, message):
         print(f"{message.topic} {message.payload}")
-        if message.topic == "/dht22/dhtreadings":
+        if message.topic == app.config['MQTT_TOPIC_DHT22']:
             print("DHT readings update")
             data = ast.literal_eval(message.payload.decode())
             temperature_1 = float(data['temperature-1'])
@@ -93,11 +93,10 @@ def create_app(config_class=Config):
 
 
     mqttc = run()
-    mqttc.message_callback_add("/bme280/bmereadings", on_message_from_bme280)
-    mqttc.message_callback_add("/dht22/dhtreadings", on_message_from_dht22)
+    mqttc.message_callback_add(app.config['MQTT_TOPIC_BME280'], on_message_from_bme280)
+    mqttc.message_callback_add(app.config['MQTT_TOPIC_DHT22'], on_message_from_dht22)
 
     return app
 
 from app import models
 from app.sensor.sensor_mqtt import run
-from app.sensor.routes import datetimeformat
