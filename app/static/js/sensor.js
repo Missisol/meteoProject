@@ -41,7 +41,7 @@ socket.on('bme_message', (data) => {
 
 
 function getBme280RpiData() {
-    fetch('/sensorReadings')
+    fetch('/bme280Rpi')
         .then((response) => response.json())
         .then((jsonR) => {
             rpiT.textContent = jsonR.temperature

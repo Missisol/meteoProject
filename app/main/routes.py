@@ -15,7 +15,7 @@ def index():
     return render_template('home.html', title='Home')
 
 
-@bp.route('/sensorReadings')
+@bp.route('/bme280Rpi')
 def get_sensor_readings():
     temperature, pressure, humidity, created_at = bme.get_sensor_readings()
     return jsonify(
@@ -31,9 +31,8 @@ def get_sensor_readings():
 
 @bp.route('/bme280Outer')
 def get_bme_mqtt_data():
-    data = Bme280Outer.query.order_by(Bme280Outer.created_at.desc()).first()
-    # query = sa.select(Bme280Outer).order_by(Bme280Outer.created_at.desc()).limit(1)
-    # data = db.session.scalars(query)
+    query = sa.select(Bme280Outer).order_by(Bme280Outer.created_at.desc())
+    data = db.session.scalar(query)
     return jsonify(
         {
             'temperature': data.temperature,
@@ -46,7 +45,8 @@ def get_bme_mqtt_data():
 
 @bp.route('/dht22Outer')
 def get_dht_mqtt_data():
-    data = Dht22.query.order_by(Dht22.created_at.desc()).first()
+    query = sa.select(Dht22).order_by(Dht22.created_at.desc())
+    data = db.session.scalar(query)
     return jsonify(
         {
             'temperature1': data.temperature1,
