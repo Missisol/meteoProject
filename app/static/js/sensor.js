@@ -16,8 +16,8 @@ const dht2T = document.querySelector('#dht2-temperature')
 const dht2H = document.querySelector('#dht2-humidity')
 const dht2Date = document.querySelector('#dht2-date')
 
-const timer = 1000 * 60
-// const timer = 1000 * 60 * 5
+// const timer = 1000 * 60
+const timer = 1000 * 60 * 5
 
 var socket = io();
 socket.on('connect', () => {
