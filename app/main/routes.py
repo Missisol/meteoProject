@@ -33,29 +33,36 @@ def get_sensor_readings():
 def get_bme_mqtt_data():
     query = sa.select(Bme280Outer).order_by(Bme280Outer.created_at.desc())
     data = db.session.scalar(query)
-    return jsonify(
-        {
-            'temperature': data.temperature,
-            'humidity': data.humidity,
-            'pressure': data.pressure,
-            'created_at': data.created_at,
-        }
-    )
+    if data:
+        return jsonify(
+            {
+                'temperature': data.temperature,
+                'humidity': data.humidity,
+                'pressure': data.pressure,
+                'created_at': data.created_at,
+                'date': data.date,
+            }
+        )
+    else:
+        return {}
 
 
 @bp.route('/dht22Outer')
 def get_dht_mqtt_data():
     query = sa.select(Dht22).order_by(Dht22.created_at.desc())
     data = db.session.scalar(query)
-    return jsonify(
-        {
-            'temperature1': data.temperature1,
-            'humidity1': data.humidity1,
-            'temperature2': data.temperature2,
-            'humidity2': data.humidity2,
-            'created_at': data.created_at,
-        }
-    )
+    if data:
+        return jsonify(
+            {
+                'temperature1': data.temperature1,
+                'humidity1': data.humidity1,
+                'temperature2': data.temperature2,
+                'humidity2': data.humidity2,
+                'created_at': data.created_at,
+            }
+        )
+    else:
+        return {}
 
 
 @bp.app_context_processor
