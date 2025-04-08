@@ -9,6 +9,8 @@ bp = Blueprint('cli', __name__, cli_group=None)
 from app.sensor.sensor_rpi import BME280Module
 bme = BME280Module()
 
+from app.sensor.sensor_history import get_minmax_bme_data
+
 
 # @bp.cli.group()
 # def scheduled():
@@ -25,5 +27,9 @@ bme = BME280Module()
 
 @bp.cli.command()
 def scheduled():
-    """Init bme"""
-    bme.get_sensor_readings()
+    """Init sensor"""
+    print('Sheduled')
+    bme.save_sensor_readings()
+    # get_minmax_bme_data()
+
+
