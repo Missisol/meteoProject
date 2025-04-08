@@ -13,8 +13,19 @@
   </head>
   <body>
     <div class="container">
-      {% include 'includes/header.html' %}
-      {% block content %}{% endblock %}
+      <div class="full-width">
+        <div class="wrapper-inner">
+          {% include 'includes/header.html' %}
+        </div>
+      </div>
+      <div class="content">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="full-width">
+        <div class="wrapper-inner">
+          {% include 'includes/footer.html' %}
+        </div>
+      </div>
     </div>
   </body>
 </html>

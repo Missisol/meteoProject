@@ -1,0 +1,21 @@
+.header {
+    padding: var(--gap) 0;
+    display: grid;
+    grid-template-columns: [logo-start] auto [logo-end menu-start] 1fr [menu-end switch-start] auto [switch-end];
+    grid-template-rows: [top-start] auto [top-end bottom-start] 1fr [bottom-end];
+    align-items: end;
+    row-gap: var(--gap2);
+  }
+
+  @media (width < 700px) {
+    .header {
+      padding: var(--gap) 0 var(--gap2);
+    }
+  }
+
+  .header__logo {
+    display: inline-block;
+    width: 30px;
+    grid-column: logo;
+    grid-row: top;
+  }
