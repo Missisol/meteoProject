@@ -67,11 +67,8 @@ def create_app(config_class=Config):
             pressure_val = round(int(data['pressure']))
 
             mod = models.Bme280Outer(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val)
+            save_on_db(mod)
             socketio.emit('bme_message', message.payload.decode())
-
-            with app.app_context():
-                db.session.add(mod)
-                db.session.commit()
 
 
     def on_message_from_dht22(client, userdata, message):
@@ -85,11 +82,14 @@ def create_app(config_class=Config):
             humidity_2 = float(data['humidity-2'])
 
             mod = models.Dht22(temperature1=temperature_1, humidity1=humidity_1, temperature2=temperature_2, humidity2=humidity_2,)
+            save_on_db(mod)
             socketio.emit('dht_message', message.payload.decode())
 
-            with app.app_context():
-                db.session.add(mod)
-                db.session.commit()
+
+    def save_on_db(data):
+        with app.app_context():
+            db.session.add(data)
+            db.session.commit()
 
 
     mqttc = run()
