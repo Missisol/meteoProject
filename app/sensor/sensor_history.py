@@ -1,4 +1,5 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
+from flask import current_app
 from app import db
 import sqlalchemy as sa
 import sqlalchemy.orm as so
@@ -6,7 +7,7 @@ from app.models import Bme280Outer, BmeHistory
 
 
 def get_minmax_bme_data():
-    for x in range(1, 11, 1):
+    for x in range(1, current_app.config['DAYS_RANGE'], 1):
         print(f'x: {x}')
         day = date.today() - timedelta(days=x) 
         print(f"date day: {day}")
@@ -42,9 +43,9 @@ def get_minmax_bme_data():
                 delete_model_data(Bme280Outer, x)
 
             elif bme_earlier_data and history_earlier_data:
-                print('History already exists')
+                delete_model_data(Bme280Outer, x)
             else:
-                print('BME data already deleted')
+                print('BME data has already been deleted')
 
         except Exception as e:
             print(e)
@@ -53,8 +54,6 @@ def get_minmax_bme_data():
 
 def delete_history_data(days):
     day = date.today() - timedelta(days=days) 
-    print(f"date day: {day}")
-
     del_stmt = sa.delete(BmeHistory).where(sa.func.DATE(BmeHistory.date) == day)
 
     db.session.execute(del_stmt)
@@ -63,10 +62,12 @@ def delete_history_data(days):
 
 def delete_model_data(model, days):
     day = date.today() - timedelta(days=days) 
-    print(f"date day: {day}")
-
-    del_stmt = sa.delete(model).where(sa.func.DATE(model.date) == day)
+    del_stmt = sa.delete(model).filter(sa.func.DATE(model.created_at) == day)
 
     db.session.execute(del_stmt)
     db.session.commit()
 
+
+def clear_db(model):
+    for x in range(1, current_app.config['DAYS_RANGE'], 1):
+        delete_model_data(model, x)

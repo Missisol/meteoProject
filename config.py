@@ -14,4 +14,5 @@ class Config:
     ITEMS_PER_PAGE = 10
     MQTT_TOPIC_BME280 = '/esp8266/bme280'
     MQTT_TOPIC_DHT22 = '/esp8266/dht22'
+    DAYS_RANGE = 11
 
