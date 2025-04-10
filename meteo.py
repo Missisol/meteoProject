@@ -3,6 +3,8 @@ import sqlalchemy as sa
 import sqlalchemy.orm as so
 from app import create_app, db
 from app.models import Bme280Rpi, Bme280Outer, Dht22
+from app.utils.sensor_data import main_menu
+
 
 app = create_app()
 
@@ -18,7 +20,5 @@ def inject_today_date():
 
 
 @app.context_processor
-def getheader_menu():
-    return {
-        
-    }
+def get_header_menu():
+    return dict(menu=main_menu)

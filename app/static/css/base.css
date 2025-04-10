@@ -20,7 +20,10 @@ html, body {
 
 body {
   line-height: 1.5;
+
   font-family: 'Roboto', sans-serif;
+  font-family: system-ui, sans-serif;
+
   background: var(--base-color);
   color: var(--base-grey-color);
 }
@@ -35,6 +38,8 @@ h1, h2,
 h3, h4 {
   text-wrap: balance;
   font-family: 'Rubik', sans-serif;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 img, picture, svg {
@@ -74,7 +79,7 @@ a:not([class]) {
   --light-red-color: #ef7985;
   --base-magenta-color: #cc66ff;
 
-  --gap: 1rem;
+  --gap: 16px;
 
   --gap-4: calc(var(--gap) / 4);
   --gap-2: calc(var(--gap) / 2);

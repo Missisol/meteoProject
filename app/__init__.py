@@ -62,13 +62,17 @@ def create_app(config_class=Config):
         if message.topic == app.config['MQTT_TOPIC_BME280']:
             print("BME readings update")
             data = ast.literal_eval(message.payload.decode())
-            temperature_val = float(data['temperature'])
-            humidity_val = float(data['humidity'])
-            pressure_val = round(int(data['pressure']))
+            if int(data['pressure']) > 0:
+                temperature_val = float(data['temperature'])
+                humidity_val = float(data['humidity'])
+                pressure_val = round(int(data['pressure']))
 
-            mod = models.Bme280Outer(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val)
-            save_on_db(mod)
-            socketio.emit('bme_message', message.payload.decode())
+                mod = models.Bme280Outer(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val)
+                save_on_db(mod)
+                socketio.emit('bme_message', message.payload.decode())
+            else:
+                print('Sensor data error')
+
 
 
     def on_message_from_dht22(client, userdata, message):
