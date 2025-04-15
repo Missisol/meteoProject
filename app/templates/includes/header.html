@@ -1,0 +1,15 @@
+<header class="header">
+    <a href="{{ url_for('main.index') }}" class="header__logo">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="logo">
+    </a>
+    <nav class="nav">
+        <ul class="nav__items">
+            {% for item in menu %}
+            <li class="nav__item" data-url="{{ item.url }}">
+                <a href="{{ url_for(item.url) }}">{{ item.text }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>
+

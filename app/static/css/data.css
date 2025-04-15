@@ -1,0 +1,66 @@
+.section {
+  margin-block-end: var(--gap2);
+}
+
+/* Gauge styles */
+.gauge__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--gap);
+}
+
+.title--date {
+  font-size: 22px;
+}
+
+#icon-wrapper {
+  cursor: pointer;
+}
+
+.gauge__icon {
+  font-size: 30px;
+  color: var(--base-blue-color);
+}
+
+.gauge-wrapper,
+.box-wrapper {
+  flex-wrap: wrap;
+  gap: var(--gap);
+  justify-content: center;
+}
+
+.visible {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.box {
+  flex-basis: 300px;
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+  font-size: 20px;
+}
+
+.icon-wrapper {
+  color: var(--base-blue-color);
+}
+
+.sensor-icon--temperature,
+.box__data--temperature {
+  color: var(--base-green-color);
+}
+
+.sensor-icon--humidity,
+.box__data--humidity {
+  color: var(--base-blue-color);
+}
+
+.sensor-icon--pressure,
+.box__data--pressure {
+  color: var(--base-magenta-color);
+}
