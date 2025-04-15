@@ -1,29 +1,33 @@
-import time
 from flask import Blueprint
 
 bp = Blueprint('cli', __name__, cli_group=None)
-# bp = Blueprint('cli', __name__)
 
-
-
-from app.sensor.bme280 import BME280Module
+from app.sensor.sensor_rpi import BME280Module
 bme = BME280Module()
+from app.models import Bme280Rpi, Dht22
+from app.sensor.sensor_history import get_minmax_bme_data, clear_db
 
 
-# @bp.cli.group()
-# def scheduled():
-#     """Job"""
-#     pass
-
-# @scheduled.command()
-# def bme280():
-#     """Init bme"""
-#     print('Start job')
-#     bme.get_sensor_readings()
-#     time.sleep(5)
-#     print('End job')
-
-@bp.cli.command()
+@bp.cli.group()
 def scheduled():
-    """Init bme"""
-    bme.get_sensor_readings()
+    """Cron job"""
+    pass
+
+
+@scheduled.command()
+def bme280():
+    """Save BME280-outer data"""
+    bme.save_sensor_readings()
+
+
+@scheduled.command()
+def minmax():
+    """Get BME280-outer min-max data"""
+    get_minmax_bme_data()
+
+
+@scheduled.command()
+def cleardb():
+    """Clear BME280-RPI and DHT22 data"""
+    clear_db(Bme280Rpi)
+    clear_db(Dht22)

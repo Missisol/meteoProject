@@ -7,13 +7,14 @@
 {% block content %}
   {% if data %}
     <table class="table">
-      <caption>BME280 on RPI</caption>
+      <caption>BME280 Outer</caption>
       <thead>
         <tr>
           <th>id</th>
           <th>temperature</th>
           <th>humidity</th>
           <th>pressure</th>
+          <th>created_at</th>
           <th>date</th>
         </tr>
       </thead>
@@ -24,7 +25,8 @@
           <td>{{ d['temperature'] }}</td>
           <td>{{ d['humidity'] }}</td>
           <td>{{ d['pressure'] }}</td>
-          <td>{{ moment(d['created_at']).format('LLL') }}</td>
+          <td>{{ d['created_at']|datetimeformat }}</td>
+          <td>{{ d['date'] }}</td>
         </tr>
         {% endfor %}
       </tbody>
