@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from flask import current_app
 from app import db
 import sqlalchemy as sa
@@ -20,8 +20,6 @@ def get_minmax_bme_data():
 
         try:
             if bme_earlier_data and not history_earlier_data:
-                print('yes')
-
                 inner_query = sa.select(Bme280Outer).filter(sa.func.DATE(Bme280Outer.created_at) == day).order_by(Bme280Outer.created_at.desc())
                 subq = inner_query.subquery()
                 minmax = so.aliased(Bme280Outer, subq)
