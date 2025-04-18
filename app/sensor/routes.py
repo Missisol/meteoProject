@@ -4,7 +4,10 @@ from app import db
 import sqlalchemy as sa
 from app.sensor import bp
 from app.models import Bme280Rpi, Bme280Outer, Dht22, BmeHistory
-from flask_babel import format_datetime
+# from flask_babel import format_datetime
+
+from app.sensor.sensor_rpi import BME280Module
+bme = BME280Module()
 
 
 @bp.app_template_filter('datetimeformat')
@@ -16,6 +19,11 @@ def datetimeformat(value):
 def dateformat(value):
     # return format_datetime(value, 'd.MM.yyyy')
     return datetime.strftime(value, '%d.%m.%y')
+
+
+@bp.route('/sensors')
+def sensors():
+    return render_template('sensor/sensors_data.html', title='Sensors')
 
 
 @bp.route('/bme280_rpi')
@@ -56,9 +64,15 @@ def dht22_outer():
 
 @bp.route('/bme_history')
 def bme_history():
+    page = request.args.get('page', 1, type=int)
     query = sa.select(BmeHistory).order_by(BmeHistory.date.desc())
-    data = db.session.scalars(query)
-    return render_template('sensor/bme_history.html', title='BME280 History', data=data)
+    data = db.paginate(query, page=page, per_page=current_app.config['ITEMS_PER_PAGE'], error_out=False)   
+    # data = db.session.scalars(query)
+    next_url = url_for('sensor.bme_history', page=data.next_num) \
+        if data.has_next else None
+    prev_url = url_for('sensor.bme_history', page=data.prev_num) \
+        if data.has_prev else None
+    return render_template('sensor/bme_history.html', title='BME280 History', data=data.items, next_url=next_url, prev_url=prev_url)
 
 
 @bp.route('/jsonhistory')
@@ -79,3 +93,44 @@ def json_history():
         )
     else:
         return {}
+
+
+@bp.route('/bme280Rpi')
+def get_sensor_readings():
+    temperature, pressure, humidity, created_at = bme.get_sensor_readings()
+    return jsonify(
+        {
+            "status": "OK",
+            "temperature": temperature,
+            "pressure": pressure,
+            "humidity": humidity,
+            "created_at": created_at,
+        }
+    )
+
+
+@bp.route('/dht22Outer')
+def get_dht_mqtt_data():
+    query = sa.select(Dht22).order_by(Dht22.created_at.desc())
+    data = db.session.scalar(query)
+    if data:
+        return jsonify(
+            {
+                'temperature1': data.temperature1,
+                'humidity1': data.humidity1,
+                'temperature2': data.temperature2,
+                'humidity2': data.humidity2,
+                'created_at': data.created_at,
+            }
+        )
+    else:
+        return jsonify(
+            {
+                'temperature1': '-',
+                'humidity1': '-',
+                'temperature2': '-',
+                'humidity2': '-',
+                'created_at': datetime.now(),
+            }
+        )
+
