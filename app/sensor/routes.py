@@ -1,4 +1,5 @@
-from flask import render_template, request, url_for, current_app
+from datetime import datetime
+from flask import render_template, request, url_for, current_app, jsonify
 from app import db
 import sqlalchemy as sa
 from app.sensor import bp
@@ -8,11 +9,14 @@ from flask_babel import format_datetime
 
 @bp.app_template_filter('datetimeformat')
 def datetimeformat(value):
-    return format_datetime(value, 'd.MM.yyyy, HH:mm:ss')
+    # return format_datetime(value, 'd.MM.yyyy, HH:mm:ss')
+    return datetime.strftime(value, '%d.%m.%y - %H:%M:%S')
 
 @bp.app_template_filter('dateformat')
 def dateformat(value):
-    return format_datetime(value, 'd.MM.yyyy')
+    # return format_datetime(value, 'd.MM.yyyy')
+    return datetime.strftime(value, '%d.%m.%y')
+
 
 @bp.route('/bme280_rpi')
 def bme280_rpi():
@@ -54,4 +58,24 @@ def dht22_outer():
 def bme_history():
     query = sa.select(BmeHistory).order_by(BmeHistory.date.desc())
     data = db.session.scalars(query)
-    return render_template('sensor/bme_history.html', data=data)
+    return render_template('sensor/bme_history.html', title='BME280 History', data=data)
+
+
+@bp.route('/jsonhistory')
+def json_history():
+    query = sa.select(BmeHistory).order_by(BmeHistory.date.desc())
+    data = db.session.scalars(query)
+    if data:
+        return jsonify(
+            {
+                'min_temperature': data.min_temperature,
+                'max_temperature': data.max_temperature, 
+                'min_humidity': data.min_humidity,
+                'max_humidity': data.max_humidity, 
+                'min_pressure': data.min_pressure, 
+                'max_pressure': data.max_pressure, 
+                'date': data.date,
+            }
+        )
+    else:
+        return {}

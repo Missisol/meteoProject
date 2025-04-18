@@ -1,3 +1,4 @@
+from datetime import datetime, timezone, date
 from flask import render_template, request, url_for, jsonify
 from app import db
 import sqlalchemy as sa
@@ -44,7 +45,15 @@ def get_bme_mqtt_data():
             }
         )
     else:
-        return {}
+        return jsonify(
+            {
+                'temperature': '-',
+                'humidity': '-',
+                'pressure': '-',
+                'created_at': datetime.now(),
+                'date': date.today(),
+            }
+        )
 
 
 @bp.route('/dht22Outer')
@@ -62,7 +71,15 @@ def get_dht_mqtt_data():
             }
         )
     else:
-        return {}
+        return jsonify(
+            {
+                'temperature1': '-',
+                'humidity1': '-',
+                'temperature2': '-',
+                'humidity2': '-',
+                'created_at': datetime.now(),
+            }
+        )
 
 
 @bp.app_context_processor

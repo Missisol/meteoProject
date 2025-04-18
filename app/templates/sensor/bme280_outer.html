@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sensor.css')}}" />
+{% endblock %}
+
+
 {% block header %}
   <h1>{% block title %}Sensors{% endblock %}</h1>
 {% endblock %}
@@ -10,33 +16,34 @@
       <caption>BME280 Outer</caption>
       <thead>
         <tr>
-          <th>id</th>
-          <th>temperature</th>
-          <th>humidity</th>
-          <th>pressure</th>
-          <th>created_at</th>
-          <th>date</th>
+          <th class="table__cell">id</th>
+          <th class="table__cell">temperature</th>
+          <th class="table__cell">humidity</th>
+          <th class="table__cell">pressure</th>
+          <th class="table__cell">created at (utc)</th>
+          <th class="table__cell">date (utc)</th>
         </tr>
       </thead>
       <tbody>
         {% for d in data %}
         <tr>
-          <td>{{ d['id'] }}</td>
-          <td>{{ d['temperature'] }}</td>
-          <td>{{ d['humidity'] }}</td>
-          <td>{{ d['pressure'] }}</td>
-          <td>{{ d['created_at']|datetimeformat }}</td>
-          <td>{{ d['date'] }}</td>
+          <td class="table__cell">{{ d['id'] }}</td>
+          <td class="table__cell">{{ d['temperature'] }}</td>
+          <td class="table__cell">{{ d['humidity'] }}</td>
+          <td class="table__cell">{{ d['pressure'] }}</td>
+          <td class="table__cell">{{ d['created_at']|datetimeformat }}</td>
+          <td class="table__cell">{{ d['date']|dateformat }}</td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
-    {% if prev_url %}
-    <a href="{{ prev_url }}">Next</a>
-    {% endif %}
     {% if next_url %}
     <a href="{{ next_url }}">Pev</a>
     {% endif %}
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Next</a>
+    {% endif %}
+
   {% else %}
       <p>No data</p>
   {% endif %}

@@ -1,3 +1,13 @@
+.table-wrapper {
+    overflow-x: auto;
+}
+
 .table__cell {
     padding: 4px 12px;
+
+    & span {
+        display: flex;
+        width: max-content;
+    }
 }
+

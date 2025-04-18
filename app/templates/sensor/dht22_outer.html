@@ -1,42 +1,51 @@
 {% extends 'base.html' %}
 
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sensor.css')}}" />
+{% endblock %}
+
+
 {% block header %}
   <h1>{% block title %}Sensors{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
   {% if data %}
-    <table class="table">
-      <caption>DHT22 Outer</caption>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>temperature-1</th>
-          <th>humidity-1</th>
-          <th>temperature-2</th>
-          <th>humidity-2</th>
-          <th>date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for d in data %}
-        <tr>
-          <td>{{ d['id'] }}</td>
-          <td>{{ d['temperature1'] }}</td>
-          <td>{{ d['humidity1'] }}</td>
-          <td>{{ d['temperature2'] }}</td>
-          <td>{{ d['humidity2'] }}</td>
-          <td>{{ d['created_at']|datetimeformat }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% if prev_url %}
-    <a href="{{ prev_url }}">Next</a>
-    {% endif %}
+    <div class="table-wrapper">
+      <table class="table">
+        <caption>DHT22 Outer</caption>
+        <thead>
+          <tr>
+            <th class="table__cell"><span>id</span></th>
+            <th class="table__cell"><span>temperature-1</span></th>
+            <th class="table__cell"><span>humidity-1</span></th>
+            <th class="table__cell"><span>temperature-2</span></th>
+            <th class="table__cell"><span>humidity-2</span></th>
+            <th class="table__cell"><span>created at (utc)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in data %}
+          <tr>
+            <td class="table__cell"><span>{{ d['id'] }}</span></td>
+            <td class="table__cell"><span>{{ d['temperature1'] }}</span></td>
+            <td class="table__cell"><span>{{ d['humidity1'] }}</span></td>
+            <td class="table__cell"><span>{{ d['temperature2'] }}</span></td>
+            <td class="table__cell"><span>{{ d['humidity2'] }}</span></td>
+            <td class="table__cell"><span>{{ d['created_at']|datetimeformat }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
     {% if next_url %}
     <a href="{{ next_url }}">Pev</a>
     {% endif %}
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Next</a>
+    {% endif %}
+
   {% else %}
       <p>No data</p>
   {% endif %}
