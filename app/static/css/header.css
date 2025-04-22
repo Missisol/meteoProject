@@ -4,9 +4,9 @@
     grid-template-columns: [logo-start] auto [logo-end menu-start] 1fr [menu-end switch-start] auto [switch-end];
     grid-template-rows: [top-start] auto [top-end bottom-start] 1fr [bottom-end];
     align-items: end; */
-    gap: var(--gap2);
+    gap: var(--gap16);
     display: flex;
-    padding-block: var(--gap);
+    padding-block: var(--gap8);
   }
 
   @media (width < 700px) {
@@ -28,7 +28,7 @@
 
   .nav__items {
     display: flex;
-    column-gap: var(--gap2);
+    column-gap: var(--gap16);
   }
 
   .nav__item {
