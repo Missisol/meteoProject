@@ -40,3 +40,23 @@ main_menu = [
         { 'url': 'sensor.dht22_outer', 'text': 'DHT22 внешние'},   
         { 'url': 'sensor.bme_history', 'text': 'BME280 история'},   
     ]
+
+bme_rpi_table = {
+    'th': ['id', 'temperature', 'humidity', 'pressure', 'created at (utc)'],
+    'td': ['id', 'temperature', 'humidity', 'pressure', 'created_at']
+}
+
+bme_outer_table = {
+    'th': ['id', 'temperature', 'humidity', 'pressure', 'created at (utc)', 'date (utc)'],
+    'td': ['id', 'temperature', 'humidity', 'pressure', 'created_at', 'date']
+}
+
+dht_outer_table = {
+    'th': ['id', 'temperature 1', 'humidity 1', 'temperature 2', 'humidity 2', 'created at (utc)'],
+    'td': ['id', 'temperature1', 'humidity1', 'temperature2', 'humidity2', 'created_at']
+}
+
+history_table = {
+    'th': ['id', 'min temperature', 'max temperature', 'min humidity', 'max humidity', 'min pressure', 'max pressure', 'date'],
+    'td': ['id', 'min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure', 'date']
+}

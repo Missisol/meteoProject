@@ -4,6 +4,7 @@ from app import db
 import sqlalchemy as sa
 from app.sensor import bp
 from app.models import Bme280Rpi, Bme280Outer, Dht22, BmeHistory
+from app.utils.sensor_data import bme_rpi_table, bme_outer_table, dht_outer_table, history_table
 # from flask_babel import format_datetime
 
 from app.sensor.sensor_rpi import BME280Module
@@ -35,7 +36,7 @@ def bme280_rpi():
         if data.has_next else None
     prev_url = url_for('sensor.bme280_rpi', page=data.prev_num) \
         if data.has_prev else None
-    return render_template('sensor/bme280_rpi.html', title='BME280 RPI', data=data.items, next_url=next_url, prev_url=prev_url)
+    return render_template('sensor/sensor_table.html', title='BME280 RPI', data=data.items, next_url=next_url, prev_url=prev_url, table=bme_rpi_table)
 
 
 @bp.route('/bme280_outer')
@@ -47,7 +48,7 @@ def bme280_outer():
         if data.has_next else None
     prev_url = url_for('sensor.bme280_outer', page=data.prev_num) \
         if data.has_prev else None
-    return render_template('sensor/bme280_outer.html', title='BME280 Outer', data=data.items, next_url=next_url, prev_url=prev_url)
+    return render_template('sensor/sensor_table.html', title='BME280 внешний', data=data.items, next_url=next_url, prev_url=prev_url, table=bme_outer_table)
 
 
 @bp.route('/dht22_outer')
@@ -59,7 +60,7 @@ def dht22_outer():
         if data.has_next else None
     prev_url = url_for('sensor.dht22_outer', page=data.prev_num) \
         if data.has_prev else None
-    return render_template('sensor/dht22_outer.html', title='DHT22 Outer', data=data.items, next_url=next_url, prev_url=prev_url)
+    return render_template('sensor/sensor_table.html', title='DHT22', data=data.items, next_url=next_url, prev_url=prev_url, table=dht_outer_table)
 
 
 @bp.route('/bme_history')
@@ -72,7 +73,7 @@ def bme_history():
         if data.has_next else None
     prev_url = url_for('sensor.bme_history', page=data.prev_num) \
         if data.has_prev else None
-    return render_template('sensor/bme_history.html', title='BME280 History', data=data.items, next_url=next_url, prev_url=prev_url)
+    return render_template('sensor/sensor_table.html', title='BME280 история', data=data.items, next_url=next_url, prev_url=prev_url, table=history_table)
 
 
 @bp.route('/jsonhistory')
