@@ -39,7 +39,6 @@ h3, h4 {
   text-wrap: balance;
   font-family: 'Rubik', sans-serif;
   font-family: 'Roboto', sans-serif;
-
 }
 
 img, picture, svg {
@@ -79,13 +78,15 @@ a:not([class]) {
   --light-red-color: #ef7985;
   --base-magenta-color: #cc66ff;
 
-  --gap: 16px;
-
-  --gap-4: calc(var(--gap) / 4);
-  --gap-2: calc(var(--gap) / 2);
-
-  --gap2: calc(var(--gap) * 2);
-  --gap4: calc(var(--gap) * 4);
+  --gap: 2px;
+  --gap2: calc(var(--gap) * 2); /* 4px */
+  --gap3: calc(var(--gap) * 3); /* 6px */
+  --gap4: calc(var(--gap) * 4); /* 8px */
+  --gap5: calc(var(--gap) * 5); /* 10px */
+  --gap6: calc(var(--gap) * 6); /* 12px */
+  --gap8: calc(var(--gap) * 8); /* 16px */
+  --gap16: calc(var(--gap) * 16); /* 32px */
+  --gap32: calc(var(--gap) * 32); /* 64px */
 
   --helper-font-size: 14px;
 }
@@ -131,7 +132,7 @@ a:not([class]) {
   grid-template-columns:
     [full-start] 1fr [container-start] minmax(0, 1100px) [container-end] 1fr [full-end];
   grid-template-rows: auto 1fr auto;
-  gap: var(--gap);
+  gap: var(--gap8);
 }
 
 .container > * {
@@ -150,7 +151,7 @@ a:not([class]) {
   display: grid;
   grid-template-columns:
     1fr [container-start] minmax(0, 1100px) [container-end] 1fr;
-  column-gap: var(--gap);
+  column-gap: var(--gap8);
 }
 
 .wrapper-inner > * {
@@ -161,7 +162,7 @@ a:not([class]) {
 .page-title {
   color: var(--base-blue-color);
   font-size: 1.5rem;
-  margin-bottom: var(--gap);
+  margin-bottom: var(--gap8);
 }
 
 .title {

@@ -61,24 +61,27 @@ def create_app(config_class=Config):
         print(f"{message.topic} {message.payload}")
         if message.topic == app.config['MQTT_TOPIC_BME280']:
             print("BME readings update")
-            data = ast.literal_eval(message.payload.decode())
-            if int(data['pressure']) > 0:
-                temperature_val = float(data['temperature'])
-                humidity_val = float(data['humidity'])
-                pressure_val = round(int(data['pressure']))
+            socketio.emit('bme_message', message.payload.decode())
 
+            data = ast.literal_eval(message.payload.decode())
+            # if int(data['pressure']) > 0:
+            temperature_val = float(data['temperature'])
+            humidity_val = float(data['humidity'])
+            pressure_val = round(int(data['pressure']))
+
+            if temperature_val < 100 and humidity_val != 100 and pressure_val > 0 and pressure_val < 800:
                 mod = models.Bme280Outer(temperature=temperature_val, humidity=humidity_val, pressure=pressure_val)
                 save_on_db(mod)
-                socketio.emit('bme_message', message.payload.decode())
             else:
-                print('Sensor data error')
-
+                print('Sensor data error for saving')
 
 
     def on_message_from_dht22(client, userdata, message):
         print(f"{message.topic} {message.payload}")
         if message.topic == app.config['MQTT_TOPIC_DHT22']:
             print("DHT readings update")
+            socketio.emit('dht_message', message.payload.decode())
+
             data = ast.literal_eval(message.payload.decode())
             temperature_1 = float(data['temperature-1'])
             humidity_1 = float(data['humidity-1'])
@@ -87,7 +90,6 @@ def create_app(config_class=Config):
 
             mod = models.Dht22(temperature1=temperature_1, humidity1=humidity_1, temperature2=temperature_2, humidity2=humidity_2,)
             save_on_db(mod)
-            socketio.emit('dht_message', message.payload.decode())
 
 
     def save_on_db(data):

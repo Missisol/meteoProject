@@ -22,7 +22,11 @@ class BME280Module:
       # Pressure convertion to mmHg
       pressure_val = round(pressure_raw_val * 0.75)
 
+      # utc datetime convert to local datetime
+      # timestamp_val = timestamp_raw_val.astimezone()
+
       print(f"temperature RPI: {temperature_val}")
+      print(f'timestamp: {timestamp_raw_val}')
       return (temperature_val, pressure_val, humidity_val, timestamp_raw_val)
     
     

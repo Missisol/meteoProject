@@ -24,8 +24,8 @@ class Bme280Outer(db.Model):
     pressure: so.Mapped[int] = so.mapped_column(sa.Integer)
     created_at: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.now(timezone.utc))
-    date: so.Mapped[datetime] = so.mapped_column(index=True, default=lambda: date.today())
-    # date: so.Mapped[datetime] = so.mapped_column(sa.Date, index=True, default=lambda: date.today())
+    date: so.Mapped[datetime] = so.mapped_column(index=True, default=lambda: datetime.now(timezone.utc).date())
+    # date: so.Mapped[datetime] = so.mapped_column(index=True, default=lambda: date.today())
     
     def __repr__(self):
         return f"temperature: {self.temperature}, humidity: {self.humidity}, pressure: {self.pressure}, created_at: {self.created_at}, date: {self.date}"
@@ -47,7 +47,7 @@ class Dht22(db.Model):
 class BmeHistory(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     date: so.Mapped[datetime] = so.mapped_column(
-    index=True, default=lambda: date.today())
+    index=True, default=lambda: datetime.now(timezone.utc).date())
     min_temperature: so.Mapped[float] = so.mapped_column(sa.Float)
     max_temperature: so.Mapped[float] = so.mapped_column(sa.Float)
     min_humidity: so.Mapped[float] = so.mapped_column(sa.Float)
