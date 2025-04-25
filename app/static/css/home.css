@@ -41,4 +41,10 @@
   .article {
     margin-block-end: var(--gap16);
   }
+
+  /* chart style */
+  .apexcharts-yaxis-label, 
+  .apexcharts-xaxis-label {
+    fill: #b2b0b0;
+  }
   
