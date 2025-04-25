@@ -20,10 +20,7 @@ html, body {
 
 body {
   line-height: 1.5;
-
-  font-family: 'Roboto', sans-serif;
   font-family: system-ui, sans-serif;
-
   background: var(--base-color);
   color: var(--base-grey-color);
 }
@@ -37,8 +34,6 @@ ol {
 h1, h2,
 h3, h4 {
   text-wrap: balance;
-  font-family: 'Rubik', sans-serif;
-  font-family: 'Roboto', sans-serif;
 }
 
 img, picture, svg {

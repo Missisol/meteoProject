@@ -47,13 +47,11 @@ function getTextContent(map, data) {
     })
 }
 
-function getSensorData(url, prefix, postfix) {
+async function getSensorData(url, prefix, postfix) {
     const map = getElementMap(prefix, postfix)
-    fetch(url)
-        .then((response) => response.json())
-        .then((res) => {
-            getTextContent(map, res)
-        })
+    const response = await fetch(url)
+    const res = await response.json()
+    getTextContent(map, res)
 }
 
 function checkContent() {
@@ -68,8 +66,8 @@ function checkContent() {
 
 function loop() {
     setTimeout(() => {
-    getSensorData('/bme280Rpi', 'rpi', postfixBme)
-      loop()
+        getSensorData('/bme280Rpi', 'rpi', postfixBme)
+        loop()
     }, timer)
   }
   
@@ -84,26 +82,3 @@ function init() {
 window.onload = (e) => {
     init()
 }
-
-
-
-
-
-// apexcharts https://apexcharts.com/docs/creating-first-javascript-chart/
-
-// var options = {
-//     chart: {
-//       type: 'line'
-//     },
-//     series: [{
-//       name: 'sales',
-//       data: [30,40,35,50,49,60,70,91,125]
-//     }],
-//     xaxis: {
-//       categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
-//     }
-//   }
-  
-//   var chart = new ApexCharts(document.querySelector("#chart"), options);
-  
-//   chart.render();
