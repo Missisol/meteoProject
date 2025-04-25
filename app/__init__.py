@@ -83,10 +83,10 @@ def create_app(config_class=Config):
             socketio.emit('dht_message', message.payload.decode())
 
             data = ast.literal_eval(message.payload.decode())
-            temperature_1 = float(data['temperature-1'])
-            humidity_1 = float(data['humidity-1'])
-            temperature_2 = float(data['temperature-2'])
-            humidity_2 = float(data['humidity-2'])
+            temperature_1 = float(data['temperature1'])
+            humidity_1 = float(data['humidity1'])
+            temperature_2 = float(data['temperature2'])
+            humidity_2 = float(data['humidity2'])
 
             mod = models.Dht22(temperature1=temperature_1, humidity1=humidity_1, temperature2=temperature_2, humidity2=humidity_2,)
             save_on_db(mod)
