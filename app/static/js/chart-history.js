@@ -45,7 +45,21 @@ function getOptionsForChart(dbData, parameter, title, colors) {
     },
     chart: {
       type: 'line',
-      height: 350
+      height: 350,
+      toolbar: {
+        tools: {
+          download: false,
+          selection: false,
+          zoom: false,
+          zoomin: false,
+          zoomout: false,
+          pan: false,
+          reset: false,
+        },
+      },
+      zoom: {
+        enabled: false,
+      },
     },
     series: [
       {
@@ -68,6 +82,10 @@ function getOptionsForChart(dbData, parameter, title, colors) {
     legend: {
       labels: {
         colors: ['#b2b0b0', '#b2b0b0']
+      },
+      markers: {
+        strokeWidth: 0,
+        offsetX: '-2px',
       }
     },
   }
