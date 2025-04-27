@@ -1,0 +1,56 @@
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.table__header {
+    font-size: 24px;
+    color: var(--base-blue-color);
+}
+
+.table__caption {
+    caption-side: bottom;
+
+    @media (width <= 700px) {
+        display: none;
+    }
+}
+
+.table__nav {
+    justify-content: space-around;
+
+    & a {
+        text-decoration: none;
+    }
+}
+
+.nav__desktop {
+    display: flex;
+}
+
+.nav__mobile {
+    display: none;
+
+    @media (width <= 700px) {
+        display: flex;
+    }    
+}
+
+.nav__link {
+    color: var(--base-blue-color);
+}
+
+.nav__inactive {
+    color: var(--base-blue-color);
+    opacity: .5;
+}
+
+
+.table__cell {
+    padding: var(--gap2) var(--gap6);
+
+    & span {
+        display: flex;
+        width: max-content;
+    }
+}
+
