@@ -76,22 +76,20 @@ def bme_history():
     return render_template('sensor/sensor_table.html', title='BME280 история', data=data.items, next_url=next_url, prev_url=prev_url, table=history_table)
 
 
-@bp.route('/jsonhistory')
+@bp.route('/json_history')
 def json_history():
-    query = sa.select(BmeHistory).order_by(BmeHistory.date.desc())
+    query = sa.select(BmeHistory).order_by(BmeHistory.date.asc()).limit(current_app.config['HISTORY_ITEMS_LIMIT'])
     data = db.session.scalars(query)
     if data:
-        return jsonify(
-            {
-                'min_temperature': data.min_temperature,
-                'max_temperature': data.max_temperature, 
-                'min_humidity': data.min_humidity,
-                'max_humidity': data.max_humidity, 
-                'min_pressure': data.min_pressure, 
-                'max_pressure': data.max_pressure, 
-                'date': data.date,
-            }
-        )
+        return [{
+                'min_temperature': n.min_temperature,
+                'max_temperature': n.max_temperature, 
+                'min_humidity': n.min_humidity,
+                'max_humidity': n.max_humidity, 
+                'min_pressure': n.min_pressure, 
+                'max_pressure': n.max_pressure, 
+                'date': n.date,
+            } for n in data]
     else:
         return {}
 

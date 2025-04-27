@@ -9,25 +9,31 @@
     <h1>{{ title }}</h1>
     {% include 'includes/icons_sensor.html' %}
     {% import 'includes/sensor_item.html' as sensor %}
+    {% import 'includes/history_charts.html' as history %}
 
     {% for prefix in list %}
         {% if prefix=='rpi' %}
-        {{ sensor.get_item('BME280 RPI', 'sensor.bme280_rpi',  'rpi', bme_list) }}
+            {{ sensor.get_item('BME280 RPI', 'sensor.bme280_rpi',  'rpi', bme_list) }}
         {% elif prefix=='bme' %}
-        {{ sensor.get_item('BME280 ESP8266', 'sensor.bme280_outer', 'bme', bme_list) }}
+            {{ sensor.get_item('BME280 ESP8266', 'sensor.bme280_outer', 'bme', bme_list) }}
+            {{ history.get_charts('BME280 history', 'sensor.bme_history') }}
         {% elif prefix=='dht1' %}
-        {{ sensor.get_item('DHT22 1 ESP8266', 'sensor.dht22_outer', 'dht1', dht_list) }}
+            {{ sensor.get_item('DHT22 1 ESP8266', 'sensor.dht22_outer', 'dht1', dht_list) }}
         {% elif prefix=='dht2'  %}
-        {{ sensor.get_item('DHT22 2 ESP8266', 'sensor.dht22_outer', 'dht2', dht_list) }}
+            {{ sensor.get_item('DHT22 2 ESP8266', 'sensor.dht22_outer', 'dht2', dht_list) }}
         {% endif %}
     {% endfor %}
-
-    <div id="chart"></div>
-
 {% endblock %}
 
 {% block script %}
     {{ super() }}
     <script src="{{ url_for('static', filename='vendor/socket.io.min.js') }}" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/sensor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sensor.js') }}" type="module"></script>
+
+    {% for prefix in list %}
+        {% if prefix=='bme' %}
+        <script src="{{ url_for('static', filename='vendor/apexcharts.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/chart-history.js') }}" type="module"></script>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

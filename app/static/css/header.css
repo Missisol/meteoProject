@@ -15,31 +15,61 @@
     }
   }
 
+  .header__logo {
+    display: inline-block;
+    width: 30px;
+    min-width: 30px;
+    align-content: center;
+    /* grid-column: logo;
+    grid-row: top; */
+  }
+
   .nav {
-    display: flex;
-    margin-inline-start: auto;
+    display: grid;
+    margin-inline: auto;
   }
 
   @media (width < 700px) {
     .nav {
-      display: none;
+      /* display: none; */
     }
   }
 
   .nav__items {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     column-gap: var(--gap16);
+
+    & > li {
+      & > a, .nav__button {
+        padding-bottom: var(--gap4);
+      }
+    }
   }
 
   .nav__item {
     font-weight: bold;
 
-    &:hover {
+    &:not(:has(ul)):hover {
       color: var(--base-blue-color);
     }
 
     & > a {
       text-decoration: none;
+      display: inline-block;
+    }
+
+    &:has(ul) {
+      position: relative;
+
+      /* &:hover,
+      &:focus-within {
+        .nested {
+          opacity: 1;
+          transform: rotateX(0) translateX(-50%);
+          visibility: visible;
+        }
+      } */
     }
   }
 
@@ -50,11 +80,46 @@
     }
   }
 
-  .header__logo {
-    display: inline-block;
-    width: 30px;
-    min-width: 30px;
-    align-content: center;
-    /* grid-column: logo;
-    grid-row: top; */
+ .nav__button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+
+    &:after {
+      content: "";
+      border: 0.35rem solid transparent;
+      border-top-color: var(--base-grey-color);
+      margin-left: 0.25em;
+      transform: translateY(0.15em);
+    }
+ }
+
+ .nested {
+  background: var(--accent-color);
+  border-radius: var(--gap2);
+  border: 1px solid var(--base-blue-color);
+  padding: var(--gap8);
+  position: absolute;
+  top: calc(100% - var(--gap2));
+  left: 50%;
+  transform: rotateX(-90deg) translateX(-50%);
+  transform-origin: top center;
+  opacity: 0.3;
+  visibility: hidden;
+  transition: 280ms all 120ms ease-out;
+
+  & a {
+    padding-block: var(--gap2);
+    font-weight: normal;
+    width: max-content;
   }
+ }
+
+ .nested.open {
+  opacity: 1;
+  transform: rotateX(0) translateX(-50%);
+  visibility: visible;
+}

@@ -12,6 +12,7 @@ class Config:
     LANGUAGES = ['ru', 'en']
     TIMEZONE = 'Europe/Moscow'
     ITEMS_PER_PAGE = 16
+    HISTORY_ITEMS_LIMIT = 10
     MQTT_TOPIC_BME280 = '/esp8266/bme280'
     MQTT_TOPIC_DHT22 = '/esp8266/dht22'
     DAYS_RANGE = 11
