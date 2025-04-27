@@ -1,0 +1,9 @@
+{% macro get_charts(title, link) %}
+    <a href="{{ url_for(link)}}" class="box__link">
+        <h3>{{ title }}</h3>
+    </a>
+
+    <div id="chartT"></div>
+    <div id="chartH"></div>
+    <div id="chartP"></div>
+{% endmacro %}

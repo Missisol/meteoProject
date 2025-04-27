@@ -9,19 +9,18 @@
     <h1>{{ title }}</h1>
     {% include 'includes/icons_sensor.html' %}
     {% import 'includes/sensor_item.html' as sensor %}
+    {% import 'includes/history_charts.html' as history %}
 
     {% for prefix in list %}
         {% if prefix=='rpi' %}
-        {{ sensor.get_item('BME280 RPI', 'sensor.bme280_rpi',  'rpi', bme_list) }}
+            {{ sensor.get_item('BME280 RPI', 'sensor.bme280_rpi',  'rpi', bme_list) }}
         {% elif prefix=='bme' %}
-        {{ sensor.get_item('BME280 ESP8266', 'sensor.bme280_outer', 'bme', bme_list) }}
-        <div id="chartT"></div>
-        <div id="chartH"></div>
-        <div id="chartP"></div>
+            {{ sensor.get_item('BME280 ESP8266', 'sensor.bme280_outer', 'bme', bme_list) }}
+            {{ history.get_charts('BME280 history', 'sensor.bme_history') }}
         {% elif prefix=='dht1' %}
-        {{ sensor.get_item('DHT22 1 ESP8266', 'sensor.dht22_outer', 'dht1', dht_list) }}
+            {{ sensor.get_item('DHT22 1 ESP8266', 'sensor.dht22_outer', 'dht1', dht_list) }}
         {% elif prefix=='dht2'  %}
-        {{ sensor.get_item('DHT22 2 ESP8266', 'sensor.dht22_outer', 'dht2', dht_list) }}
+            {{ sensor.get_item('DHT22 2 ESP8266', 'sensor.dht22_outer', 'dht2', dht_list) }}
         {% endif %}
     {% endfor %}
 {% endblock %}
