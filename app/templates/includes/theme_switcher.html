@@ -1,0 +1,7 @@
+<section aria-label="Color scheme switcher" class="theme-switcher">
+    {% for item in theme_switcher %}
+        <button aria-pressed="{{ item.pressed }}" value="{{ item.value }}" class="theme-switcher__button">
+            {{ item.text }}
+        </button>
+    {% endfor %}
+</section>

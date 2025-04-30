@@ -62,3 +62,9 @@ history_table = {
     'th': ['id', 'min temperature', 'max temperature', 'min humidity', 'max humidity', 'min pressure', 'max pressure', 'date'],
     'td': ['id', 'min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure', 'date']
 }
+
+theme_switcher = [
+    { 'text': 'Светлая', 'value': 'light', 'pressed': 'false' },
+    { 'text': 'Авто', 'value': 'light dark', 'pressed': 'true' },
+    { 'text': 'Темная', 'value': 'dark', 'pressed': 'false' },
+]
