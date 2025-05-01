@@ -1,8 +1,6 @@
 {% macro get_item(title, link, prefix, box_list) %}
-<section class="section section__sensor">
-  <a href="{{ url_for(link)}}" class="box__link">
-    <h3>{{ title }}</h3>
-  </a>
+<section class="section section-sensor">
+    {% include 'includes/box_link.html' %}
     <div class="wrapper box-wrapper">
         {% for el in box_list %}
         <div class="box">
