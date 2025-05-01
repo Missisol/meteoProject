@@ -5,33 +5,72 @@ const params = [
   ['#chartH', 'humidity', 'влажность', ['#1b4a79', '#3392f1']],
   ['#chartP', 'pressure', 'давление', ['#6e3889', '#cc66ff']],
 ]
+const charts = []
 
-async function getHistoryData() {
-  const response = await fetch('/json_history')
-  const res = await response.json()
-  return res
+function setupForm() {
+
+  const buttonResetEl = document.querySelector('#button-reset')
+  buttonResetEl.addEventListener('click', () => {
+    getHistoryData()
+  })
 }
 
-function getChartDataFromDbData(arr, parameter) {
-  const categoriesValues = []
+function initForm() {
+  setupForm()
+  const formEl = document.querySelector('#history-form')
+  formEl.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      const params = `start=${formEl.start_date.value}&end=${formEl.end_date.value}`
+      const arr =  getHistoryData(params)
+      charts.forEach(chart => chart.updateSeries())
+  })
+}
+
+
+async function getHistoryData(params) {
+  const url = params ? `/json_history?${params}` : '/json_history'
+  const response = await fetch(url)
+  const res = await response.json()
+  updateCharts(res.toReversed())
+}
+
+function getChartDataFromDbData(arr, parameter, title) {
   const minValues = []
   const maxValues = []
   
-  arr.map((item) => {
+  arr.map((item, idx) => {
     const date = new Date(item.date).toLocaleDateString('ru')
-    categoriesValues.push(date)
-    minValues.push(item[`min_${parameter}`])
+    minValues.push({x: date, y: item[`min_${parameter}`]})
     const edge = parameter !== 'pressure' ? 100 : 800
     const maxV = item[`max_${parameter}`] >= edge ? item[`min_${parameter}`] : item[`max_${parameter}`]
-    maxValues.push(maxV)
+    maxValues.push({x: date, y: maxV})
   })
-  return {categoriesValues, minValues, maxValues}
+  const names = [`мин ${title}`, `макс ${title}`]
+
+  return { minValues, maxValues, names }
 }
 
-function getOptionsForChart(dbData, parameter, title, colors) {
-  const {categoriesValues, minValues, maxValues } = getChartDataFromDbData(dbData, parameter)
+function getSeriesData(dbData, param) {
+  const [ _, parameter, title, colors ] = param
+  const { minValues, maxValues, names } = getChartDataFromDbData(dbData, parameter, title)
+  
+  return [
+    {
+      name: names[0],
+      data: minValues,
+      color: colors[0],
+    },
+    {
+      name: names[1],
+      data: maxValues,
+      color: colors[1],
+    },
+  ]
+}
+
+function getOptionsForChart(title, colors) {
   const titleText = title.toUpperCase()
-  const names = [`мин ${title}`, `макс ${title}`]
 
   return {
     title: {
@@ -61,23 +100,12 @@ function getOptionsForChart(dbData, parameter, title, colors) {
         enabled: false,
       },
     },
-    series: [
-      {
-        name: names[0],
-        data: minValues,
-        color: colors[0],
-      },
-      {
-        name: names[1],
-        data: maxValues,
-        color: colors[1],
-      },
-    ],
+    series: [],
     stroke: {
       dashArray: [0, 4],
     },
     xaxis: {
-      categories: categoriesValues,
+      type: 'category',
     },
     legend: {
       labels: {
@@ -91,18 +119,29 @@ function getOptionsForChart(dbData, parameter, title, colors) {
   }
 }
 
-function renderChart(dbData, selector, parameter, title, colors) {
-  const options = getOptionsForChart(dbData, parameter, title, colors)
+function renderChart(selector, _, title, colors) {
+  const options = getOptionsForChart(title, colors)
   const chart = new ApexCharts(document.querySelector(selector), options)
+  charts.push(chart)
   chart.render()
 }
 
-const res = await getHistoryData()
-
 function initCharts() {
-  params.forEach(param => renderChart(res, ...param))
+  params.forEach(param => renderChart(...param))
 }
 
-initCharts()
+function updateCharts(res) {
+  params.forEach((param, idx) => {
+    const series = getSeriesData(res, param )
+    charts[idx].updateSeries(series)
+  })
+}
 
+async function initHistoryCharts() {
+  initCharts()
+  initForm()
+  getHistoryData()
+}
+
+initHistoryCharts()
 

@@ -1,5 +1,5 @@
 {% macro get_item(title, link, prefix, box_list) %}
-<article class="article">
+<section class="section section__sensor">
   <a href="{{ url_for(link)}}" class="box__link">
     <h3>{{ title }}</h3>
   </a>
@@ -16,6 +16,6 @@
         </div>
         {% endfor %}
     </div>
-</article>
+</section>
 {% endmacro %}
 

@@ -87,12 +87,18 @@
     display: inline-flex;
     align-items: center;
 
-    &:after {
+    &::after {
       content: "";
       border: 0.35rem solid transparent;
       border-top-color: var(--base-grey-color);
-      margin-left: 0.25em;
-      transform: translateY(0.15em);
+      margin-left: var(--gap4);
+      transform: translateY(var(--gap2));
+    }
+
+    &[aria-expanded=true]::after {
+      border-top-color: transparent;
+      border-bottom-color: var(--base-grey-color);
+      transform: translateY(calc(-1 * var(--gap2)));
     }
  }
 

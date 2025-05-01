@@ -1,13 +1,20 @@
 {% extends "base.html" %}
 {% block head %}
     {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}" />
+    {% for prefix in list %}
+        {% if prefix=='bme' %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css')}}" />
+        {% endif %}
+    {% endfor %}
 {% endblock %}
 
 
 {% block content %}
-    <h1>{{ title }}</h1>
     {% include 'includes/icons_sensor.html' %}
+
+    <h1>{{ title }}</h1>
+
     {% import 'includes/sensor_item.html' as sensor %}
     {% import 'includes/history_charts.html' as history %}
 
@@ -16,6 +23,7 @@
             {{ sensor.get_item('BME280 RPI', 'sensor.bme280_rpi',  'rpi', bme_list) }}
         {% elif prefix=='bme' %}
             {{ sensor.get_item('BME280 ESP8266', 'sensor.bme280_outer', 'bme', bme_list) }}
+            {% include 'includes/history_form.html' %}
             {{ history.get_charts('BME280 history', 'sensor.bme_history') }}
         {% elif prefix=='dht1' %}
             {{ sensor.get_item('DHT22 1 ESP8266', 'sensor.dht22_outer', 'dht1', dht_list) }}

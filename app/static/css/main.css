@@ -38,8 +38,13 @@
     color: var(--base-magenta-color);
   }
 
-  .article {
+  .section {
+    padding-block-start: var(--gap8);
     margin-block-end: var(--gap16);
+  }
+
+  .chart-wrapper {
+    padding-block: var(--gap8);
   }
 
   /* chart style */

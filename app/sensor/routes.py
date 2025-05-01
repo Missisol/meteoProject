@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from flask import render_template, request, url_for, current_app, jsonify
 from app import db
 import sqlalchemy as sa
@@ -76,10 +76,20 @@ def bme_history():
     return render_template('sensor/sensor_table.html', title='BME280 история', data=data.items, next_url=next_url, prev_url=prev_url, table=history_table)
 
 
-@bp.route('/json_history')
+@bp.route('/json_history', methods=['GET', 'POST'])
 def json_history():
-    query = sa.select(BmeHistory).order_by(BmeHistory.date.asc()).limit(current_app.config['HISTORY_ITEMS_LIMIT'])
+    start = request.args.get('start')
+    end = request.args.get('end')
+    print(f'params: {start} and {end}')
+
+    if start and end:
+        print('start', date.fromisoformat(start))
+        print('end', date.fromisoformat(end))
+        query = sa.select(BmeHistory).filter(BmeHistory.date >= date.fromisoformat(start), BmeHistory.date <= date.fromisoformat(end)).order_by(BmeHistory.date.desc()).limit(current_app.config['HISTORY_ITEMS_LIMIT'])
+    else:
+        query = sa.select(BmeHistory).order_by(BmeHistory.date.desc()).limit(current_app.config['HISTORY_ITEMS_LIMIT'])
     data = db.session.scalars(query)
+
     if data:
         return [{
                 'min_temperature': n.min_temperature,
