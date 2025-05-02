@@ -64,9 +64,9 @@ history_table = {
 }
 
 theme_switcher = [
-    { 'text': 'Светлая', 'value': 'light', 'pressed': 'false' },
+    { 'value': 'light', 'pressed': 'false', 'icon': 'sun' },
     { 'text': 'Авто', 'value': 'light dark', 'pressed': 'true' },
-    { 'text': 'Темная', 'value': 'dark', 'pressed': 'false' },
+    { 'value': 'dark', 'pressed': 'false', 'icon': 'moon' },
 ]
 
 form_buttons = [
