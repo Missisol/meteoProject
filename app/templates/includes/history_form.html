@@ -1,27 +1,27 @@
-<section class="section form-box">
-    <div class="form-box__contents">
-      <div class="form-box__title">
-        <button class="form-button__toggle ">
-          <h3 class="form-button__header">Изменить период графиков</h3>
-          <svg aria-hidden="true" width="16" height="16" class="button__arrow">
-            <use xlink:href="#arrow" />
-          </svg>
-        </button>
-      </div>
-      <form id="history-form" class="form" name="history-form">
-        <p class="form__input-wrapper">
-          <label for="start-date" class="form__label">Начало периода</label>
-          <input type="date" id="start-date" name="start_date" required class="form__input">
-        </p>
-        <p class="form__input-wrapper">
-          <label for="end-date" class="form__label">Конец периода</label>
-          <input type="date" id="end-date" name="end_date" required class="form__input">
-        </p>
-        <div class="form__buttons">
-          <input type="submit" id="button-submit" value="Задать период" class="form__button">
-          <input type="reset" id="button-reset" value="Очистить" class="form__button">
-        </div>
-      </form>
-      <span id="form-error" class="form__error"></span>
+{% include 'includes/icon_change.html' %}
+
+<section class="section section-form">
+  <h3 class="form-title">Изменить период графиков</h3>
+  <form id="history-form" class="form" name="history-form" novalidate>
+    <div class="calendar-wrapper">
+      <p class="input-wrapper">
+        <label for="start-date" class="form__label">Начало периода</label>
+        <input type="date" id="start-date" name="start_date" required class="input">
+      </p>
+      <button type="button" id="button-change" class="button button-change">
+        <svg aria-hidden="true" width="24" height="24" class="svg-change">
+          <use xlink:href="#change-icon"></use>
+        </svg>
+      </button>
+      <p class="input-wrapper">
+        <label for="end-date" class="form__label">Конец периода</label>
+        <input type="date" id="end-date" name="end_date" required class="input">
+      </p>
     </div>
-  </section>
+    <div class="buttons">
+      <input type="submit" id="button-submit" value="Задать период" class="button">
+      <input type="reset" id="button-reset" value="Очистить" class="button">
+    </div>
+  </form>
+  <span id="form-error" class="form__error"></span>
+</section>

@@ -85,7 +85,7 @@ def json_history():
     if start and end:
         print('start', date.fromisoformat(start))
         print('end', date.fromisoformat(end))
-        query = sa.select(BmeHistory).filter(BmeHistory.date >= date.fromisoformat(start), BmeHistory.date <= date.fromisoformat(end)).order_by(BmeHistory.date.desc()).limit(current_app.config['HISTORY_ITEMS_LIMIT'])
+        query = sa.select(BmeHistory).filter(BmeHistory.date >= date.fromisoformat(start), BmeHistory.date <= date.fromisoformat(end)).order_by(BmeHistory.date.desc())
     else:
         query = sa.select(BmeHistory).order_by(BmeHistory.date.desc()).limit(current_app.config['HISTORY_ITEMS_LIMIT'])
     data = db.session.scalars(query)

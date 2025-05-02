@@ -1,5 +1,14 @@
 // apexcharts https://apexcharts.com/docs/creating-first-javascript-chart/
 
+import { getMaxDateForCalehdar } from "./helpers.js"
+
+const formEl = document.querySelector('#history-form')
+const buttonResetEl = document.querySelector('#button-reset')
+const startInput = document.querySelector('#start-date')
+const endInput = document.querySelector('#end-date')
+const errorSpan = document.querySelector('#form-error')
+const buttonChangeEl = document.querySelector('#button-change')
+
 const params = [
   ['#chartT', 'temperature', 'температура', ['#1d531c', '#3ba639']],
   ['#chartH', 'humidity', 'влажность', ['#1b4a79', '#3392f1']],
@@ -7,23 +16,57 @@ const params = [
 ]
 const charts = []
 
-function setupForm() {
+let newStart
+let newEnd
 
-  const buttonResetEl = document.querySelector('#button-reset')
-  buttonResetEl.addEventListener('click', () => {
-    getHistoryData()
-  })
+function setupForm() {
+  const formattedDaye = getMaxDateForCalehdar()
+  startInput.setAttribute('max', formattedDaye)
+  endInput.setAttribute('max', formattedDaye)
+}
+
+function validateForm() {
+  if (formEl.start_date.value > formEl.end_date.value) {
+    return {error: 'Дата начала периода больше даты конца периода'}
+  } 
+  if (formEl.start_date.value <= formEl.end_date.value) {
+    return {params: `start=${formEl.start_date.value}&end=${formEl.end_date.value}`}
+  }
 }
 
 function initForm() {
   setupForm()
-  const formEl = document.querySelector('#history-form')
   formEl.addEventListener('submit', (e) => {
       e.preventDefault()
 
-      const params = `start=${formEl.start_date.value}&end=${formEl.end_date.value}`
-      const arr =  getHistoryData(params)
-      charts.forEach(chart => chart.updateSeries())
+      if (formEl.start_date.value && formEl.end_date.value) {
+        const res = validateForm()
+
+        if (res?.params) {
+          getHistoryData(res.params)
+          charts.forEach(chart => chart.updateSeries())
+        }
+        if (res?.error) {
+          newStart = formEl.end_date.value
+          newEnd = formEl.start_date.value
+          errorSpan.textContent = res.error
+        }
+      }
+  })
+
+  buttonChangeEl.addEventListener('click', () => {
+    newStart = formEl.end_date.value
+    newEnd = formEl.start_date.value
+
+    formEl.end_date.value = newEnd
+    formEl.start_date.value = newStart
+    errorSpan.textContent = ''
+})
+
+  buttonResetEl.addEventListener('click', () => {
+    if (formEl.start_date.value || formEl.end_date.value) {
+      getHistoryData()
+    }
   })
 }
 
