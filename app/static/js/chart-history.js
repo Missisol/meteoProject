@@ -20,9 +20,9 @@ let newStart
 let newEnd
 
 function setupForm() {
-  const formattedDaye = getMaxDateForCalehdar()
-  startInput.setAttribute('max', formattedDaye)
-  endInput.setAttribute('max', formattedDaye)
+  const formattedDate = getMaxDateForCalehdar()
+  startInput.setAttribute('max', formattedDate)
+  endInput.setAttribute('max', formattedDate)
 }
 
 function validateForm() {
@@ -55,12 +55,14 @@ function initForm() {
   })
 
   buttonChangeEl.addEventListener('click', () => {
-    newStart = formEl.end_date.value
-    newEnd = formEl.start_date.value
-
-    formEl.end_date.value = newEnd
-    formEl.start_date.value = newStart
-    errorSpan.textContent = ''
+    if (formEl.start_date.value && formEl.end_date.value) {
+      newStart = formEl.end_date.value
+      newEnd = formEl.start_date.value
+  
+      formEl.end_date.value = newEnd
+      formEl.start_date.value = newStart
+      errorSpan.textContent = ''
+    }
 })
 
   buttonResetEl.addEventListener('click', () => {

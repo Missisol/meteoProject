@@ -68,3 +68,8 @@ theme_switcher = [
     { 'text': 'Авто', 'value': 'light dark', 'pressed': 'true' },
     { 'text': 'Темная', 'value': 'dark', 'pressed': 'false' },
 ]
+
+form_buttons = [
+    { 'type': 'submit', 'id': 'button-submit', 'value': 'Задать период', 'class': 'button' },
+    { 'type': 'reset', 'id': 'button-reset', 'value': 'Очистить', 'class': 'button' },
+]

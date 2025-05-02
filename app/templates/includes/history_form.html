@@ -19,8 +19,9 @@
       </p>
     </div>
     <div class="buttons">
-      <input type="submit" id="button-submit" value="Задать период" class="button">
-      <input type="reset" id="button-reset" value="Очистить" class="button">
+      {% for button in form_buttons %}
+        <input type="{{ button.type }}" id="{{ button.id }}" value="{{ button.value }}" class="{{ button.class }}">
+      {% endfor %}
     </div>
   </form>
   <span id="form-error" class="form__error"></span>

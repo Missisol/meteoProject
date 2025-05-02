@@ -66,14 +66,15 @@
 
         @media (width < 600px ) {
             align-self:initial;
+            transform: rotate(90deg)
         }
 
         &:hover {
-            background-color: var(--medium-grey-color);
+            background-color: transparent;
 
-            & .svg-change {
+            /* & .svg-change {
                 color: var(--accent-color);
-            }
+            } */
         }
     }
 
