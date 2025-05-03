@@ -1,3 +1,6 @@
+/* https://moderncss.dev/css-only-accessible-dropdown-navigation-menu/ */
+/* https://pepelsbey.dev/articles/native-light-dark/  */
+
 .header {
     padding: var(--gap8) 0;
     display: grid;
@@ -85,10 +88,10 @@
 
     &::after {
       content: "";
-      border: 0.35rem solid transparent;
+      border: 0.4rem solid transparent;
       border-top-color: var(--base-grey-color);
       margin-left: var(--gap4);
-      transform: translateY(var(--gap2));
+      transform: translateY(6px);
     }
 
     &[aria-expanded=true]::after {
