@@ -5,7 +5,7 @@ import sqlalchemy as sa
 from app.main import bp
 from app.sensor.sensor_rpi import BME280Module
 from app.models import Bme280Outer
-from app.utils.sensor_data import list_bme, list_dht, sensors_list, weather_list
+from app.utils.sensor_data import list_bme, list_dht, sensors_list, weather_list, theme_switcher, form_buttons
 
 bme = BME280Module()
 
@@ -50,5 +50,7 @@ def inject_boxes():
             'dht_list': list_dht,
             'sensors_list': sensors_list,
             'weather_list': weather_list,
+            'theme_switcher': theme_switcher,
+            'form_buttons': form_buttons,
         }
     )

@@ -44,21 +44,32 @@ main_menu = [
 ]
 
 bme_rpi_table = {
-    'th': ['id', 'temperature', 'humidity', 'pressure', 'created at (utc)'],
-    'td': ['id', 'temperature', 'humidity', 'pressure', 'created_at']
+    'th': ['id', 'created at (utc)', 'temperature', 'humidity', 'pressure'],
+    'td': ['id', 'created_at', 'temperature', 'humidity', 'pressure']
 }
 
 bme_outer_table = {
-    'th': ['id', 'temperature', 'humidity', 'pressure', 'created at (utc)', 'date (utc)'],
-    'td': ['id', 'temperature', 'humidity', 'pressure', 'created_at', 'date']
+    'th': ['id', 'created at (utc)', 'date (utc)', 'temperature', 'humidity', 'pressure'],
+    'td': ['id', 'created_at', 'date', 'temperature', 'humidity', 'pressure']
 }
 
 dht_outer_table = {
-    'th': ['id', 'temperature 1', 'humidity 1', 'temperature 2', 'humidity 2', 'created at (utc)'],
-    'td': ['id', 'temperature1', 'humidity1', 'temperature2', 'humidity2', 'created_at']
+    'th': ['id', 'created at (utc)', 'temperature 1', 'humidity 1', 'temperature 2', 'humidity 2'],
+    'td': ['id', 'created_at', 'temperature1', 'humidity1', 'temperature2', 'humidity2']
 }
 
 history_table = {
-    'th': ['id', 'min temperature', 'max temperature', 'min humidity', 'max humidity', 'min pressure', 'max pressure', 'date'],
-    'td': ['id', 'min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure', 'date']
+    'th': ['id', 'date', 'min temperature', 'max temperature', 'min humidity', 'max humidity', 'min pressure', 'max pressure'],
+    'td': ['id', 'date', 'min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure']
 }
+
+theme_switcher = [
+    { 'value': 'light', 'pressed': 'false', 'icon': 'sun' },
+    { 'text': 'Авто', 'value': 'light dark', 'pressed': 'true' },
+    { 'value': 'dark', 'pressed': 'false', 'icon': 'moon' },
+]
+
+form_buttons = [
+    { 'type': 'submit', 'id': 'button-submit', 'value': 'Задать период', 'class': 'button' },
+    { 'type': 'reset', 'id': 'button-reset', 'value': 'Очистить', 'class': 'button' },
+]

@@ -2,9 +2,10 @@
     overflow-x: auto;
 }
 
-.table__header {
+.table-title {
     font-size: 24px;
     color: var(--base-blue-color);
+    margin-bottom: var(--gap8);
 }
 
 .table__caption {
