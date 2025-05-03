@@ -46,7 +46,12 @@
 
   .section {
     padding-block-start: var(--gap8);
-    margin-block-end: var(--gap16);
+    padding-block-end: var(--gap16);
+    /* margin-block-end: var(--gap16); */
+  }
+
+  .section:has(+ .section) {
+    border-block-end: 1px solid var(--base-grey-color);
   }
 
   .chart-wrapper {
