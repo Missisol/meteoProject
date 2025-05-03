@@ -3,14 +3,20 @@
     flex-direction: column;
     gap: var(162);
   }
+
+  .page-title {
+    font-size: 32px;
+    margin-bottom: var(--gap8);
+  }
   
-    .box-wrapper {
+  
+  .box-wrapper {
     display: grid;
     gap: var(--gap8);
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
-  .box__link {
+  .box-link {
     display: block;
     color: var(--base-blue-color);
     margin-block-end: var(--gap8);
@@ -38,8 +44,18 @@
     color: var(--base-magenta-color);
   }
 
-  .article {
-    margin-block-end: var(--gap16);
+  .section {
+    padding-block-start: var(--gap8);
+    padding-block-end: var(--gap16);
+    /* margin-block-end: var(--gap16); */
+  }
+
+  .section:has(+ .section) {
+    border-block-end: 1px solid var(--base-grey-color);
+  }
+
+  .chart-wrapper {
+    padding-block: var(--gap8);
   }
 
   /* chart style */
