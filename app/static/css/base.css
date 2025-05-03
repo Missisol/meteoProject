@@ -1,6 +1,7 @@
-:root {
+:root { 
+  interpolate-size: allow-keywords;
+   
   /* color-scheme: light dark; */
-
   --base-color: light-dark(#fff, #191919);
   --accent-color: light-dark(#ececec, #212020);
   --base-grey-color: light-dark(#595959, #b2b0b0);

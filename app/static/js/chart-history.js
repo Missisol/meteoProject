@@ -2,12 +2,14 @@
 
 import { getMaxDateForCalehdar } from "./helpers.js"
 
+const formSection = document.querySelector('.section-form')
 const formEl = document.querySelector('#history-form')
 const buttonResetEl = document.querySelector('#button-reset')
 const startInput = document.querySelector('#start-date')
 const endInput = document.querySelector('#end-date')
 const errorSpan = document.querySelector('#form-error')
 const buttonChangeEl = document.querySelector('#button-change')
+const buttonToggleEl = document.querySelector('.button-toggle')
 
 const params = [
   ['#chartT', 'temperature', 'температура', ['#1d531c', '#3ba639']],
@@ -18,6 +20,16 @@ const charts = []
 
 let newStart
 let newEnd
+
+buttonToggleEl.addEventListener('click', (e) => {
+  if (formSection.classList.contains('open')) {
+    formSection.classList.remove('open')
+    buttonToggleEl.setAttribute('aria-expanded', false)
+  } else {
+    formSection.classList.add('open')
+    buttonToggleEl.setAttribute('aria-expanded', true)
+  }
+})
 
 function setupForm() {
   const formattedDate = getMaxDateForCalehdar()

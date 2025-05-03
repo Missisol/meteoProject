@@ -1,7 +1,14 @@
-{% include 'includes/icon_change.html' %}
+{% include 'icons/icon_change.html' %}
 
 <section class="section section-form">
-  <h3 class="form-title">Изменить период графиков</h3>
+  <button
+    type="button"
+    class="button-toggle"
+    aria-expanded="false"
+    aria-controls="history-form"
+  >
+    <h3 class="form-title">Изменить период графиков</h3>
+  </button>
   <form id="history-form" class="form" name="history-form" novalidate>
     <div class="calendar-wrapper">
       <p class="input-wrapper">
@@ -23,6 +30,6 @@
         <input type="{{ button.type }}" id="{{ button.id }}" value="{{ button.value }}" class="{{ button.class }}">
       {% endfor %}
     </div>
+    <span id="form-error" class="form__error"></span>
   </form>
-  <span id="form-error" class="form__error"></span>
 </section>
