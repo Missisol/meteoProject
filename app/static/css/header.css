@@ -88,7 +88,7 @@
 
     &::after {
       content: "";
-      border: 0.4rem solid transparent;
+      border: 6px solid transparent;
       border-top-color: var(--base-grey-color);
       margin-left: var(--gap4);
       transform: translateY(6px);
@@ -97,7 +97,8 @@
     &[aria-expanded=true]::after {
       border-top-color: transparent;
       border-bottom-color: var(--base-grey-color);
-      transform: translateY(calc(-1 * var(--gap2)));
+      transform: translateY(-6px);
+      /* transform: translateY(calc(-1 * var(--gap2))); */
     }
  }
 
