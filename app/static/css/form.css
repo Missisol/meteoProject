@@ -71,14 +71,15 @@
 
     & .input {
         padding: var(--gap2) var(--gap8);
+        border: 1px solid var(--base-grey-color);
         border-radius: var(--gap4);
-        background-color: var(--medium-grey-color);
+        background-color: var(--base-color);
     }
 
     & .button {
         appearance: none;
-        border: none;
-        padding: var(--gap4) var(--gap8);
+        padding: calc(var(--gap5) / 2) var(--gap8);
+        border: 1px solid var(--base-blue-color);
         border-radius: var(--gap4);
         background-color: var(--base-blue-color);
         color: var(--light-grey-color);
@@ -94,6 +95,8 @@
         width: min-content;
         align-self: end;
         background-color: transparent;
+        border: none;
+        cursor: pointer;
 
         @media (width < 600px ) {
             align-self:initial;
