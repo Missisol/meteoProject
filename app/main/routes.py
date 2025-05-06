@@ -43,7 +43,7 @@ def get_bme_mqtt_data():
 
 
 @bp.app_context_processor
-def inject_boxes():
+def inject_data():
     return dict(
         {
             'bme_list': list_bme,

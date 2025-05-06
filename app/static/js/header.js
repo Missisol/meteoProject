@@ -30,12 +30,27 @@ document.body.addEventListener('click', (e) => {
 switchButtons.forEach((button) => {
 	button.addEventListener('click', () => {
 		const currentButton = button
-
+        localStorage.setItem('scheme', button.value)
 		switchButtons.forEach((button) => button.setAttribute(
 				'aria-pressed', button === currentButton
 			)
 		)
-
 		colorScheme.content = button.value
 	})
 })
+
+function initScheme() {
+    const val = localStorage.getItem('scheme')
+    switchButtons.forEach((button) => {
+        if (!val) {
+            colorScheme.content = 'light dark'
+            localStorage.setItem('scheme', 'light dark')
+            button.setAttribute('aria-pressed', button.value === 'light dark')
+        } else {
+            colorScheme.content = val
+            button.setAttribute('aria-pressed', val === button.value) 
+        }
+    })
+}
+
+initScheme()
