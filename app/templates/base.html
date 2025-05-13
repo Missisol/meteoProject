@@ -37,8 +37,6 @@
     {% endblock %}
 
     <script>
-              console.log('navigator')
-
       if ('serviceWorker' in navigator) {
         
           navigator.serviceWorker.register("/static/sw.js").then(function(registration) {
