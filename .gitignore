@@ -43,3 +43,4 @@ meteo.log*
 .env
 
 .vscode
+certs

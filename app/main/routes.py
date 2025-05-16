@@ -5,7 +5,7 @@ import sqlalchemy as sa
 from app.main import bp
 from app.sensor.sensor_rpi import BME280Module
 from app.models import Bme280Outer
-from app.utils.sensor_data import list_bme, list_dht, sensors_list, weather_list, theme_switcher, form_buttons
+from app.utils.sensor_data import list_bme, list_dht, sensors_list, weather_list, theme_switcher, form_buttons, main_menu
 
 bme = BME280Module()
 
@@ -43,7 +43,7 @@ def get_bme_mqtt_data():
 
 
 @bp.app_context_processor
-def inject_boxes():
+def inject_data():
     return dict(
         {
             'bme_list': list_bme,
@@ -52,5 +52,6 @@ def inject_boxes():
             'weather_list': weather_list,
             'theme_switcher': theme_switcher,
             'form_buttons': form_buttons,
+            'menu': main_menu,
         }
     )

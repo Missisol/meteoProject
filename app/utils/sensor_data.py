@@ -65,7 +65,7 @@ history_table = {
 
 theme_switcher = [
     { 'value': 'light', 'pressed': 'false', 'icon': 'sun' },
-    { 'text': 'Авто', 'value': 'light dark', 'pressed': 'true' },
+    { 'value': 'light dark', 'pressed': 'false', 'text': 'Авто' },
     { 'value': 'dark', 'pressed': 'false', 'icon': 'moon' },
 ]
 

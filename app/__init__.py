@@ -43,6 +43,9 @@ def create_app(config_class=Config):
     from app.cli import bp as cli_bp
     app.register_blueprint(cli_bp)
 
+    from app.pwa import bp as pwa_bp
+    app.register_blueprint(pwa_bp)
+
 
     if not app.debug:
         if not os.path.exists('logs'):

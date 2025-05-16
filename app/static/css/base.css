@@ -32,7 +32,6 @@
 *::before, 
 *::after {
   box-sizing: border-box;
-  transition: background-color 0.2s, color 0.2s;
 }
 
 html {
@@ -54,7 +53,6 @@ body {
   font-family: system-ui, sans-serif;
   background: var(--base-color);
   color: var(--base-grey-color);
-  transition: background-color 0.1s, color 0.1s;
 }
 
 ul,
