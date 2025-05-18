@@ -24,11 +24,11 @@ services:
     meteo:
         build: .
         ports:
-            - 8000:5000
+            - 8080:5000
         devices:
             - "/dev/i2c-1"
-        depends_on:
-            - mosquitto
+        # depends_on:
+        #     - mosquitto
             # mosquitto:
             #     condition: service_healthy
         networks:
@@ -38,4 +38,4 @@ networks:
     mosquitto:
         driver: bridge
         driver_opts: 
-            com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+            com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
