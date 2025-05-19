@@ -37,5 +37,5 @@ services:
 networks:
     mosquitto:
         driver: bridge
-        driver_opts: 
-            com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+        # driver_opts: 
+        #     com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"

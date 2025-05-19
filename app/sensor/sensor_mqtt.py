@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 from app import socketio
 
-broker_url = '0.0.0.0'
+broker_url = '192.168.1.122'
 broker_port = 1883
 
 
@@ -21,15 +21,10 @@ def on_message(client, userdata, message):
 
 def connect_mqtt():
     mqttc = mqtt.Client()
+    print('mqtt')
+    print(mqttc)
     mqttc.on_connect = on_connect
     mqttc.on_message = on_message
-    mqttc.connect_async(broker_url, broker_port, 60)
-    # mqttc.connect(broker_url, broker_port, 60)
-    return mqttc
-
-
-def run():
-    mqttc = connect_mqtt()
+    mqttc.connect(broker_url, broker_port, 60)
     mqttc.loop_start()
     return mqttc
-
