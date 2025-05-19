@@ -1,0 +1,31 @@
+services:
+    mosquitto:
+        image: eclipse-mosquitto:2
+        ports:
+            - 1883:1883
+            - 9001:9001
+        restart: unless-stopped
+        volumes:
+            - ./mosquitto/config:/mosquitto/config
+            - ./mosquitto/data:/mosquitto/data
+            - ./mosquitto/log:/mosquitto/log
+        networks:
+            - mosquitto
+
+    meteo:
+        build: .
+        ports:
+            - 8080:5000
+        env_file: .env
+        environment:
+            - RPI_URL
+            - MQTT_TOPIC_BME280
+            - MQTT_TOPIC_DHT22
+        devices:
+            - "/dev/i2c-1"
+        networks:
+            - mosquitto
+
+networks:
+    mosquitto:
+        driver: bridge
