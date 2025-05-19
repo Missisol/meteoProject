@@ -8,16 +8,17 @@
 - Создание виртуальной среды - `python3 -m venv <env name>`
 - Активация витруальной среды - `source <env name>/bin/activate`
 - Установка зависимостей - `pip install -r requirements.txt`
+- Если файервол (UFW) включен, должен быть открыт доступ к портам, на которых будет открываться проект, и к порту 1883
 
 #### Mosquitto MQTT Broker
-- Если firewall (UFW) отключен или включен и при этом разрешен доступ к порту 1883 можно использовать Mosquitto Brocker, установленный на Raspberry Pi:    
+- Mожно использовать Mosquitto Brocker, установленный на Raspberry Pi:    
     - установка Mosquitto Broker на Raspberry Pi
     `sudo apt install -y mosquitto mosquitto-clients`
     - настройка автоматического запуска Mosquitto Broker при загрузке RPI - `sudo systemctl enable mosquitto.service`
     - для удаленного доступа без аутентификации в конфигурационный файл /etc/mosquitto/mosquitto.conf добавить:  
         `listener 1883`  
         `allow_anonymous true`
-- Если firewall (UFW) включен и при этом запрещен доступ к порту 1883 можно использовать Mosquitto Brocker в докер-контейнере:
+- Можно использовать Mosquitto Brocker в докер-контейнере:
     - создать файл mosquitto.conf в домашней директории
     - запустить Mosquitto Broker в контейнере  - `docker run -d --restart unless-stopped --name <name> -p 1883:1883 -v $HOME/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto:2`
 
@@ -41,7 +42,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;`autorestart=true`  
 &nbsp;&nbsp;&nbsp;&nbsp;`stopasgroup=true`  
 &nbsp;&nbsp;&nbsp;&nbsp;`killasgroup=true` 
-- `sudo supervisorctl reload`
+- команды: `sudo supervisorctl reload`, `sudo supervisorctl start/stop meteo`
+
+#### Деплой в докер-контейнере
+- остановить Mosquitto Broker, если он уже запущен на RPI или в докер-контейнере
+- `docker compose up`
 
 ---
 
