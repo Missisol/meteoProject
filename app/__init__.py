@@ -101,11 +101,11 @@ def create_app(config_class=Config):
             db.session.commit()
 
 
-    mqttc = run()
+    mqttc = connect_mqtt()
     mqttc.message_callback_add(app.config['MQTT_TOPIC_BME280'], on_message_from_bme280)
     mqttc.message_callback_add(app.config['MQTT_TOPIC_DHT22'], on_message_from_dht22)
 
     return app
 
 from app import models
-from app.sensor.sensor_mqtt import run
+from app.sensor.sensor_mqtt import connect_mqtt
