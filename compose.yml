@@ -11,31 +11,21 @@ services:
             - ./mosquitto/log:/mosquitto/log
         networks:
             - mosquitto
-        # healthcheck:
-        #     # test: ["CMD", "curl", "-X", "Upgrade", "-f", "http://localhost" ]
-        #     test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
-        #     # test: ["CMD-SHELL", "timeout -t 5 mosquitto_sub -t '$$SYS/#' -C 1 | grep -v Error || exit 1"]
-        #     # test: ["CMD-SHELL", "timeout -t 5 -t '$$SYS/#' -C 1 | grep -v Error || exit 1"]
-        #     # test: ["CMD-SHELL", "mosquitto_sub", "-t", "$SYS/#", "-C", "1", "-W", "3"]
-        #     interval: 10s
-        #     timeout: 10s
-        #     retries: 3
 
     meteo:
         build: .
         ports:
             - 8080:5000
+        env_file: .env
+        environment:
+            - RPI_URL
+            - MQTT_TOPIC_BME280
+            - MQTT_TOPIC_DHT22
         devices:
             - "/dev/i2c-1"
-        # depends_on:
-        #     - mosquitto
-            # mosquitto:
-            #     condition: service_healthy
         networks:
             - mosquitto
 
 networks:
     mosquitto:
         driver: bridge
-        # driver_opts: 
-        #     com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
