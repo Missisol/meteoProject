@@ -12,11 +12,11 @@ socket.on('connect', () => {
 })
 socket.on('dht_message', (data) => {
     const map = getElementMap(['dht1', 'dht2'], postfixDht)
-    getTextContent(map, data)
+    getTextContent(map, JSON.parse(data))
 })
 socket.on('bme_message', (data) => {
     const map = getElementMap('bme', postfixBme)
-    getTextContent(map, data)
+    getTextContent(map, JSON.parse(data))
 })
 
 function getElementMap(prefix, postfix) {
