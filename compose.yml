@@ -10,7 +10,7 @@ services:
             - ./mosquitto/data:/mosquitto/data
             - ./mosquitto/log:/mosquitto/log
         networks:
-            - mosquitto
+            - meteo
 
     meteo:
         build: .
@@ -24,8 +24,8 @@ services:
         devices:
             - "/dev/i2c-1"
         networks:
-            - mosquitto
+            - meteo
 
 networks:
-    mosquitto:
+    meteo:
         driver: bridge
