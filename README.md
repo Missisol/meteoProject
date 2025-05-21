@@ -1,3 +1,5 @@
+## Регистрация метеоданных (температура, влажность, давление) от датчиков DHT22 и BME280 с использованием ESP8266 и Raspberry Pi
+
 ***[Project on Github](https://github.com/Missisol/meteoProject/tree/develop)***
 
 ***[Sketches on Github](https://github.com/Missisol/ESP8266_BME280_DHT22_project)*** - скетчи для ESP8266 с BME280 и DHT22
@@ -20,7 +22,7 @@
         `allow_anonymous true`
 - Можно использовать Mosquitto Brocker в докер-контейнере:
     - создать файл mosquitto.conf в домашней директории
-    - запустить Mosquitto Broker в контейнере  - `docker run -d --restart unless-stopped --name <name> -p 1883:1883 -v $HOME/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto:2`
+    - запустить Mosquitto Broker в контейнере  - `docker run -d --restart always --name <name> -p 1883:1883 -v $HOME/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto:2`
 
 ---
 
