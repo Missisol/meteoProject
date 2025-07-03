@@ -34,6 +34,7 @@ sensors_list = ['rpi', 'dht1', 'dht2']
 weather_list = ['bme']
 
 main_menu = [
+    { 'url': 'main.index', 'text': 'Датчик погоды'},   
     { 'url': 'sensor.sensors', 'text': 'Датчики в доме'},   
     { 'text': 'Таблицы', 'nested': [
         { 'url': 'sensor.bme_history', 'text': 'BME280 история'},
