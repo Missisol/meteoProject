@@ -55,7 +55,7 @@
 
 
 .table__cell {
-    padding: var(--gap2) var(--gap2);
+    padding: var(--gap2) var(--gap4);
     vertical-align: top;
 
     & span {
@@ -77,3 +77,11 @@
     }
 }
 
+th.table__cell {
+    border-bottom: 1px solid var(--base-blue-color);
+    border-top: 1px solid var(--base-blue-color);
+}
+
+th + th {
+    border-left: 1px solid var(--base-blue-color);
+}
