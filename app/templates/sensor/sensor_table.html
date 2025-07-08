@@ -19,12 +19,12 @@
                     <tr>
                         {% for item in table.th %}
                             <th class="table__cell">
-                                <span>{{ item|safe }}</span>
+                                <span class="cell-th">{{ item|safe }}</span>
                             </th>
                         {% endfor %}
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table__body">
                     {% for d in data %}
                         <tr>
                             {% for item in table.td %}

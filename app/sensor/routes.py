@@ -13,7 +13,7 @@ bme = BME280Module()
 
 @bp.app_template_filter('datetimeformat')
 def datetimeformat(value):
-    return format_datetime(value, 'd.MM.yyyy, HH:mm:ss')
+    return format_datetime(value, 'd.MM.YY, HH:mm')
     # return datetime.strftime(value, '%d.%m.%y - %H:%M:%S')
 
 @bp.app_template_filter('dateformat')
