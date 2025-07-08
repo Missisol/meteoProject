@@ -48,10 +48,16 @@
 
 .table__cell {
     padding: var(--gap2) var(--gap6);
+    vertical-align: top;
 
     & span {
         display: flex;
-        width: max-content;
+        /* width: max-content; */
+        max-width: 20ch;
+    }
+
+    &:has(span.data) span.data {
+        justify-content: center;
     }
 }
 

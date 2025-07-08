@@ -19,7 +19,7 @@
                     <tr>
                         {% for item in table.th %}
                             <th class="table__cell">
-                                <span>{{ item }}</span>
+                                <span>{{ item|safe }}</span>
                             </th>
                         {% endfor %}
                     </tr>
@@ -38,7 +38,7 @@
                                     </td>
                                 {% else %}
                                     <td class="table__cell">
-                                        <span>{{ d[item] }}</span>
+                                        <span class="data">{{ d[item] }}</span>
                                     </td>   
                                 {% endif %}         
                             {% endfor %}
