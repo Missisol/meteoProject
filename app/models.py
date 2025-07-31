@@ -54,6 +54,12 @@ class BmeHistory(db.Model):
     max_humidity: so.Mapped[float] = so.mapped_column(sa.Float)
     min_pressure: so.Mapped[int] = so.mapped_column(sa.Integer)
     max_pressure: so.Mapped[int] = so.mapped_column(sa.Integer)
+    min_temperature_time: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=None, nullable=True)
+    max_temperature_time: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=None, nullable=True)
+    min_humidity_time: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=None, nullable=True)
+    max_humidity_time: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=None, nullable=True)
+    min_pressure_time: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=None, nullable=True)
+    max_pressure_time: so.Mapped[datetime] = so.mapped_column(sa.DateTime, default=None, nullable=True)
 
     def __repr__(self):
-        return f"date: {self.date}, min temperature: {self.min_temperature}, max temperature: {self.max_temperature}, min humidity: {self.min_humidity}, max humidity: {self.max_humidity}, min pressure: {self.min_pressure}, max pressure: {self.max_pressure}"
+        return f"date: {self.date}, min temperature: {self.min_temperature}, min temperature time: {self.min_temperature_time}, max temperature: {self.max_temperature}, max temperature_time: {self.max_temperature_time}, min humidity: {self.min_humidity}, min humidity time: {self.min_humidity_time}, max humidity: {self.max_humidity}, max humidity time: {self.max_humidity_time}, min pressure: {self.min_pressure}, min pressure time: {self.min_pressure_time}, max pressure: {self.max_pressure}, max pressure time: {self.max_pressure_time}"

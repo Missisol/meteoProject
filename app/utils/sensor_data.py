@@ -69,8 +69,36 @@ dht_outer_table = {
 history_table = {
     # 'th': ['id', 'date', 'min temperature', 'max temperature', 'min humidity', 'max humidity', 'min pressure', 'max pressure'],
     # 'td': ['id', 'date', 'min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure']
-    'th': ['Дата', 'Температура мин., &deg;C', 'Температура макс., &deg;C', 'Влажность мин., %', 'Влажность макс., %', 'Давление мин., мм.рт.ст.', 'Давление макс., мм.рт.ст.'],
-    'td': ['date', 'min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure']
+    'th': [
+      'Дата', 
+      'Температура мин., &deg;C', 
+      'Время', 
+      'Температура макс., &deg;C', 
+      'Время',
+      'Влажность мин., %', 
+      'Время',
+      'Влажность макс., %', 
+      'Время',
+      'Давление мин., мм.рт.ст.', 
+      'Время',
+      'Давление макс., мм.рт.ст.',
+      'Время',
+      ],
+    'td': [
+        'date', 
+        'min_temperature', 
+        'min_temperature_time', 
+        'max_temperature', 
+        'max_temperature_time', 
+        'min_humidity', 
+        'min_humidity_time', 
+        'max_humidity', 
+        'max_humidity_time', 
+        'min_pressure', 
+        'min_pressure_time', 
+        'max_pressure',
+        'max_pressure_time',
+      ]
 }
 
 theme_switcher = [

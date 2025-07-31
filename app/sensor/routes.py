@@ -16,10 +16,19 @@ def datetimeformat(value):
     return format_datetime(value, 'd.MM.YY, HH:mm')
     # return datetime.strftime(value, '%d.%m.%y - %H:%M:%S')
 
+
 @bp.app_template_filter('dateformat')
 def dateformat(value):
     return format_datetime(value, 'd.MM.yyyy')
     # return datetime.strftime(value, '%d.%m.%y')
+
+
+@bp.app_template_filter('time')
+def timeformat(value):
+    if value: 
+        return format_datetime(value, 'HH:mm')
+    else:
+        return '-'
 
 
 @bp.route('/sensors')
