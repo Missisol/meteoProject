@@ -6,25 +6,25 @@
 {% endblock %}
 
 {% block content %}
-    {% if data %}
-        <div class="table-wrapper">
-            <h1 class="table-title">{{ title }}</h1>
-            <table class="table">
-                <caption class="table__caption">
-                    <nav class="table__nav nav__desktop">
-                        {% include 'includes/table_nav.html' %}
-                    </nav>
-                </caption>
-                <thead>
-                    <tr>
-                        {% for item in table.th %}
-                            <th class="table__cell">
-                                <span class="cell-th">{{ item|safe }}</span>
-                            </th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody class="table__body">
+    <div class="table-wrapper">
+        <h1 class="table-title">{{ title }}</h1>
+        <table class="table">
+            <caption class="table__caption">
+                <nav class="table__nav nav__desktop">
+                    {% include 'includes/table_nav.html' %}
+                </nav>
+            </caption>
+            <thead>
+                <tr>
+                    {% for item in table.th %}
+                        <th class="table__cell">
+                            <span class="cell-th">{{ item|safe }}</span>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody class="table__body">
+                {% if data %}
                     {% for d in data %}
                         <tr>
                             {% for item in table.td %}
@@ -35,6 +35,10 @@
                                 {%  elif item == 'date' %}
                                     <td class="table__cell">
                                         <span>{{ d[item]|dateformat }}</span>
+                                    </td>
+                                {%  elif 'time' in item  %}
+                                    <td class="table__cell">
+                                        <span class="data">{{ d[item]|time }}</span>
                                     </td>
                                 {% else %}
                                     <td class="table__cell">

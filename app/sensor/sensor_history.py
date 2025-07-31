@@ -12,29 +12,38 @@ def get_minmax_bme_data():
         print(f"date day: {day}")
 
         bq = sa.select(Bme280Outer).filter(sa.func.DATE(Bme280Outer.created_at) == day)
-        bme_earlier_data = db.session.scalars(bq).first()
+        bme_earlier_data = db.session.scalars(bq).all()
 
         hq = sa.select(BmeHistory).filter(sa.func.DATE(BmeHistory.date) == day)
         history_earlier_data = db.session.scalars(hq).first()
 
         try:
             if bme_earlier_data and not history_earlier_data:
-                inner_query = sa.select(Bme280Outer).filter(sa.func.DATE(Bme280Outer.created_at) == day).order_by(Bme280Outer.created_at.desc())
-                subq = inner_query.subquery()
-                minmax = so.aliased(Bme280Outer, subq)
-                u = sa.select(
-                    sa.func.min(minmax.temperature),
-                    sa.func.max(minmax.temperature),
-                    sa.func.min(minmax.humidity),
-                    sa.func.max(minmax.humidity),
-                    sa.func.min(minmax.pressure),
-                    sa.func.max(minmax.pressure),
-                    sa.func.DATE(minmax.created_at)
+                min_temperature = min(bme_earlier_data, key=lambda x: x.temperature)
+                max_temperature = max(bme_earlier_data, key=lambda x: x.temperature)
+                min_humidity = min(bme_earlier_data, key=lambda x: x.humidity)
+                max_humidity = max(bme_earlier_data, key=lambda x: x.humidity)
+                min_pressure = min(bme_earlier_data, key=lambda x: x.pressure)
+                max_pressure = max(bme_earlier_data, key=lambda x: x.pressure)
+
+
+                history = BmeHistory(
+                    min_temperature=min_temperature.temperature,
+                    max_temperature=max_temperature.temperature,
+                    min_humidity=min_humidity.humidity,
+                    max_humidity=max_humidity.humidity,
+                    min_pressure=min_pressure.pressure,
+                    max_pressure=max_pressure.pressure,
+                    min_temperature_time=min_temperature.created_at,
+                    max_temperature_time=max_temperature.created_at,
+                    min_humidity_time=min_humidity.created_at,
+                    max_humidity_time=max_humidity.created_at,
+                    min_pressure_time=min_pressure.created_at,
+                    max_pressure_time=max_pressure.created_at,
+                    date=day
                 )
 
-                history = sa.insert(BmeHistory).from_select(['min_temperature', 'max_temperature', 'min_humidity', 'max_humidity', 'min_pressure', 'max_pressure', 'date'], u)
-
-                db.session.execute(history)
+                db.session.add(history)
                 db.session.commit()
 
                 delete_model_data(Bme280Outer, x)
@@ -46,7 +55,6 @@ def get_minmax_bme_data():
 
         except Exception as e:
             print(e)
-
 
 
 def delete_history_data(days):
