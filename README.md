@@ -24,14 +24,18 @@
     - создать файл mosquitto.conf в домашней директории
     - запустить Mosquitto Broker в контейнере  - `docker run -d --restart always --name <name> -p 1883:1883 -v $HOME/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto:2`
 
+#### Расписание задач с Cron
+- Настройка расписания выполнения задач с использованием Cron 
+    - `crontab -e`
+    - `* * * * * cd <path_to_project_directory> && <env name>/bin/flask <command_name>`
+- когда проет запущен, в терминале запускаем команду - `(.venv) $  flask --help`. В разделе Commands видим команду (в данном проекте - `scheduled Cron job`)
+- когда проет запущен, в терминале запускаем команду - в данном проекте - `(.venv) $  flask scheduled`. В разделе Commands видим перечень задач
+
 ---
 
 ### Запуск проекта
 #### Разработка
 - Запуск проекта в dev режиме - `flask run --host=0.0.0.0`
-- Настройка расписания выполнения задач с использованием Cron 
-    - `crontab -e`
-    - `* * * * * cd <path_to_project_directory> && <env name>/bin/flask <command_name>`
 
 #### Деплой
 - установить supervisor - `sudo apt install supervisor`

@@ -4,6 +4,7 @@
   /* color-scheme: light dark; */
   --base-color: light-dark(#fff, #191919);
   --accent-color: light-dark(#ececec, #212020);
+  --accent-table-color: light-dark(#ececec, #292828);
   --base-grey-color: light-dark(#595959, #b2b0b0);
   --medium-grey-color: light-dark(#808080, #808080);
   --light-grey-color: light-dark(#cecece, #cecece);

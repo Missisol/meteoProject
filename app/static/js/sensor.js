@@ -41,7 +41,7 @@ function getTextContent(map, data) {
         if (v && k.startsWith('date')) {
             v.textContent = data?.created_at ? new Date(data.created_at).toLocaleString('ru') : new Date().toLocaleString('ru')
         } 
-        if (data[k] && !k.startsWith('date')) {
+        if (v && data[k] && !k.startsWith('date')) {
             v.textContent = data[k]
         }
     })
