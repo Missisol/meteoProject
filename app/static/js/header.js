@@ -10,7 +10,7 @@ const navButton = document.querySelector('.nav__button')
 
 items.forEach((item) => {
     const a = item.dataset.url.replace('sensor.', '/')
-    if (a === href || (a === 'main.index' && href === '/home')) {
+    if (a === href || (a === 'main.index' && (href === '/home' || href === '/'))) {
         item.classList.add('active')
     } else {
         item.classList.remove('active')
