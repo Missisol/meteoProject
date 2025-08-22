@@ -8,7 +8,7 @@ from app.models import Bme280Outer, BmeHistory
 
 def get_minmax_bme_data():
     for x in range(1, current_app.config['DAYS_RANGE'], 1):
-        day = datetime.now(timezone.utc).date() - timedelta(days=x) 
+        day = datetime.now().date() - timedelta(days=x) 
         print(f"date day: {day}")
 
         bq = sa.select(Bme280Outer).filter(sa.func.DATE(Bme280Outer.created_at) == day)
@@ -58,7 +58,7 @@ def get_minmax_bme_data():
 
 
 def delete_history_data(days):
-    day = datetime.now(timezone.utc).date() - timedelta(days=days) 
+    day = datetime.now().date() - timedelta(days=days) 
     del_stmt = sa.delete(BmeHistory).where(sa.func.DATE(BmeHistory.date) == day)
 
     db.session.execute(del_stmt)
@@ -66,7 +66,7 @@ def delete_history_data(days):
 
 
 def delete_model_data(model, days):
-    day = datetime.now(timezone.utc).date() - timedelta(days=days) 
+    day = datetime.now().date() - timedelta(days=days) 
     del_stmt = sa.delete(model).filter(sa.func.DATE(model.created_at) == day)
 
     db.session.execute(del_stmt)
